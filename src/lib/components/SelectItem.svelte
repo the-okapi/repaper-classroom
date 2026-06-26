@@ -9,7 +9,7 @@
 <Select.Item
 	value={value.value}
 	label={lang(lS, value.english, value.french)}
-	class="hover:bg-(--fg)/10 rounded-xl {c} {styling ? value.value : ''}"
+	class="hover:bg-(--fg)/5! z-50 rounded-xl {c} {styling ? value.value : ''}"
 >
 	{#snippet children({ selected })}
 		<div class="flex">

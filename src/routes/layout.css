@@ -73,6 +73,7 @@
 	cursor: pointer;
 	width: 10rem;
 	margin: auto;
+	background-color: var(--bg);
 }
 
 [data-select-trigger]:focus {
@@ -89,10 +90,11 @@
 }
 
 [data-select-item] {
+	background-color: var(--bg);
 	cursor: pointer;
 	padding: 0.35rem 0.5rem;
 }
 
 [data-button-root]:focus {
-	outline: 2px solid var(--p);
+	outline: none!;
 }
