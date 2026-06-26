@@ -53,3 +53,46 @@
 :root {
 	font-family: var(--font);
 }
+
+.a {
+	margin: auto 0.5rem;
+}
+
+.a:hover {
+	text-decoration: underline;
+}
+
+[data-select-trigger] {
+	border: 1px var(--o) solid;
+	color: var(--fg);
+	border-radius: 0.75rem;
+	padding: 0.5rem;
+	outline-color: var(--fg);
+	display: grid;
+	grid-template-columns: 3fr 1fr;
+	cursor: pointer;
+	width: 10rem;
+	margin: auto;
+}
+
+[data-select-trigger]:focus {
+	outline: 2px solid var(--p);
+}
+
+[data-select-content] {
+	width: 10rem;
+	border-radius: 0.75rem;
+	outline: none;
+	height: fit-content;
+	background-color: var(--bg);
+	border: 1px var(--o) solid;
+}
+
+[data-select-item] {
+	cursor: pointer;
+	padding: 0.35rem 0.5rem;
+}
+
+[data-button-root]:focus {
+	outline: 2px solid var(--p);
+}
