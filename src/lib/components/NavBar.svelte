@@ -2,7 +2,7 @@
 	import { Button } from 'bits-ui';
 	import { lS, lang } from '$lib/lang.svelte';
 	import { page } from '$app/state';
-	import { Book, Settings } from '$lib/components';
+	import { Settings } from '$lib/components';
 
 	let shown = $state(false);
 	let settings = $state(false);
@@ -26,13 +26,13 @@
 
 <nav>
 	<Button.Root
-		class="z-40 fixed bg-(--bg) top-5 left-5 p-1.5 border border-(--o) rounded-xl cursor-pointer"
+		class="z-40 fixed bg-(--bg) top-5 left-5 w-10 h-10 border border-(--o) font-[TimesNewRoman] font-black text-2xl rounded-lg cursor-pointer"
 		onclick={show}
 	>
-		<Book class="size-6 fill-(--fg)" />
+		R
 	</Button.Root>
 	{#if shown}
-		<div class="z-40 fixed top-5 left-17 py-1.5 px-3 border border-(--o) rounded-xl bg-(--bg)">
+		<div class="z-40 fixed h-10 top-5 left-17 py-1.5 px-3 border border-(--o) rounded-xl bg-(--bg)">
 			<Button.Root class="a" href="/">{lang(lS, 'Home', 'Accueil')}</Button.Root>
 			<Button.Root class="a cursor-pointer" onclick={() => (settings = !settings)}
 				>{lang(lS, 'Settings', 'Paramètres')}</Button.Root
