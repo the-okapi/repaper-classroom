@@ -54,14 +54,6 @@
 	font-family: var(--font);
 }
 
-.a {
-	margin: auto 0.5rem;
-}
-
-.a:hover {
-	text-decoration: underline;
-}
-
 [data-select-trigger] {
 	border: 1px var(--o) solid;
 	color: var(--fg);
@@ -97,4 +89,12 @@
 
 [data-button-root]:focus {
 	outline: none!;
+}
+
+.card {
+	position: absolute;
+	width: fit;
+	z-index: 50;
+	top: 3rem;
+	justify-self: center;
 }
