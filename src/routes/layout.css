@@ -1,7 +1,7 @@
 @import 'tailwindcss';
 
 .light {
-    color-scheme: light;
+	color-scheme: light;
 	--bg: #fff0d5;
 	--fg: #000;
 	--p: #774e24;
@@ -14,7 +14,7 @@
 }
 
 .dark {
-    color-scheme: dark;
+	color-scheme: dark;
 	--bg: #222;
 	--fg: #fafafa;
 	--p: #00dfdf;
@@ -26,30 +26,30 @@
 	color: var(--fg);
 }
 
-[data-theme="georgia"] {
-    --font: "Georgia";
+[data-theme='georgia'] {
+	--font: 'Georgia';
 }
 
-[data-theme="arial"] {
-    --font: "Arial";
+[data-theme='arial'] {
+	--font: 'Arial';
 }
 
-[data-theme="tahoma"] {
-    --font: "Tahoma";
+[data-theme='tahoma'] {
+	--font: 'Tahoma';
 }
 
-[data-theme="times"] {
-    --font: "Times New Roman";
+[data-theme='times'] {
+	--font: 'Times New Roman';
 }
 
-[data-theme="trebuchet"] {
-    --font: "Trebuchet MS";
+[data-theme='trebuchet'] {
+	--font: 'Trebuchet MS';
 }
 
-[data-theme="system"] {
-    --font: system-ui;
+[data-theme='system'] {
+	--font: system-ui;
 }
 
 :root {
-    font-family: var(--font);
+	font-family: var(--font);
 }
