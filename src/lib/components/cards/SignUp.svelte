@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { Label, Button } from 'bits-ui';
 	import { lS, lang } from '$lib/lang.svelte';
-    import { slide } from 'svelte/transition';
+	import { slide } from 'svelte/transition';
 
 	let { class: c, ...props } = $props();
 </script>

@@ -30,24 +30,48 @@
 	--font: 'Georgia';
 }
 
+.georgia {
+	font-family: 'Georgia';
+}
+
 [data-theme='arial'] {
 	--font: 'Arial';
+}
+
+.arial {
+	font-family: 'Arial';
 }
 
 [data-theme='tahoma'] {
 	--font: 'Tahoma';
 }
 
+.tahoma {
+	font-family: 'Tahoma';
+}
+
 [data-theme='times'] {
 	--font: 'Times New Roman';
+}
+
+.times {
+	font-family: 'Times New Roman';
 }
 
 [data-theme='trebuchet'] {
 	--font: 'Trebuchet MS';
 }
 
+.trebuchet {
+	font-family: 'Trebuchet MS';
+}
+
 [data-theme='system'] {
 	--font: system-ui;
+}
+
+.system {
+	font-family: system-ui;
 }
 
 :root {
@@ -104,6 +128,20 @@ input {
 	color: var(--fg);
 	border-radius: 0.75rem;
 	padding: 0.25rem 0.5rem;
+}
+
+input:disabled {
+	background-color: color-mix(in oklab, var(--fg) 7%, transparent);
+	border-color: color-mix(in oklab, var(--fg) 10%, transparent);
+	color: color-mix(in oklab, var(--fg) 60%, transparent);
+	cursor: not-allowed;
+}
+
+[data-button-root]:disabled {
+	color: color-mix(in oklab, var(--fg) 50%, transparent);
+	background-color: color-mix(in oklab, var(--fg) 10%, transparent);
+	opacity: 1;
+	cursor: not-allowed;
 }
 
 input:focus {

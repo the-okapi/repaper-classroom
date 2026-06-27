@@ -16,7 +16,6 @@
 			loggedIn = true;
 		}
 		const lang = localStorage.getItem('classroom-lang');
-		console.log(lang);
 		if (lang === 'en') {
 			lS.lang = 'en';
 		} else if (lang === 'fr') {

@@ -5,7 +5,7 @@
 	import { slide } from 'svelte/transition';
 
 	let { loggedIn } = $props();
-	
+
 	let shown = $state(false);
 	let settings = $state(false);
 	let login = $state(false);
@@ -55,37 +55,39 @@
 	R
 </button>
 {#if shown}
-<div in:slide={{ axis: "x" }} out:slide={{ axis: "x" }}
-	class="flex z-40 fixed h-10 top-5 left-17 py-1.5 px-3 outline outline-(--o) rounded-xl bg-(--bg)"
->
-	<a class="mx-2 hover:underline" href="/">{lang(lS, 'Home', 'Accueil')}</a>
-	<div class="cardButton {settings ? 'z-50' : 'z-40'}">
-		<button class="mx-2 hover:underline cursor-pointer whitespace-nowrap" onclick={showSettings}
-			>{lang(lS, 'Settings', 'Paramètres')}</button
-		>
-		{#if settings}
-			<Settings class="card" />
+	<div
+		in:slide={{ axis: 'x' }}
+		out:slide={{ axis: 'x' }}
+		class="flex z-40 fixed h-10 top-5 left-17 py-1.5 px-3 outline outline-(--o) rounded-xl bg-(--bg)"
+	>
+		<a class="mx-2 h-fit m-auto hover:underline" href="/">{lang(lS, 'Home', 'Accueil')}</a>
+		<div class="cardButton h-fit m-auto {settings ? 'z-50' : 'z-40'}">
+			<button class="mx-2 hover:underline cursor-pointer whitespace-nowrap" onclick={showSettings}
+				>{lang(lS, 'Settings', 'Paramètres')}</button
+			>
+			{#if settings}
+				<Settings class="card" />
+			{/if}
+		</div>
+		{#if !loggedIn}
+			<div class="cardButton h-fit m-auto {login ? 'z-50' : 'z-40'}">
+				<button class="mx-2 hover:underline cursor-pointer whitespace-nowrap" onclick={showLogin}
+					>{lang(lS, 'Log In', 'Se Connecter')}</button
+				>
+				{#if login}
+					<Login class="card" />
+				{/if}
+			</div>
+			<div class="cardButton h-fit m-auto {signup ? 'z-50' : 'z-40'}">
+				<button class="mx-2 hover:underline cursor-pointer whitespace-nowrap" onclick={showSignup}
+					>{lang(lS, 'Sign Up', "S'inscrire")}</button
+				>
+				{#if signup}
+					<Signup class="card" />
+				{/if}
+			</div>
 		{/if}
 	</div>
-	{#if !loggedIn}
-		<div class="cardButton {login ? 'z-50' : 'z-40'}">
-			<button class="mx-2 hover:underline cursor-pointer whitespace-nowrap" onclick={showLogin}
-				>{lang(lS, 'Log In', 'Se Connecter')}</button
-			>
-			{#if login}
-				<Login class="card" />
-			{/if}
-		</div>
-		<div class="cardButton {signup ? 'z-50' : 'z-40'}">
-			<button class="mx-2 hover:underline cursor-pointer whitespace-nowrap" onclick={showSignup}
-				>{lang(lS, 'Sign Up', "S'inscrire")}</button
-			>
-			{#if signup}
-				<Signup class="card" />
-			{/if}
-		</div>
-	{/if}
-</div>
 {/if}
 <h1 class="fixed top-5 text-4xl font-bold text-center w-screen">{getTitle(page.url.pathname)}</h1>
 
