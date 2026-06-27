@@ -5,10 +5,16 @@
 	import { NavBar } from '$lib/components';
 	import { onMount } from 'svelte';
 	import { lS } from '$lib/lang.svelte';
+	import type { LayoutProps } from './$types';
 
-	let { children } = $props();
+	let { data, children }: LayoutProps = $props();
+
+	let loggedIn = $state(false);
 
 	onMount(() => {
+		if (data.claims?.data) {
+			loggedIn = true;
+		}
 		const lang = localStorage.getItem('classroom-lang');
 		console.log(lang);
 		if (lang === 'en') {
@@ -25,7 +31,7 @@
 
 <ModeWatcher darkClassNames={['dark']} lightClassNames={['light']} />
 
-<NavBar />
+<NavBar {loggedIn} />
 
 <main>
 	{@render children()}
