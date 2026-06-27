@@ -1,11 +1,12 @@
 <script lang="ts">
 	import { Button, Label } from 'bits-ui';
 	import { lS, lang } from '$lib/lang.svelte';
+    import { slide } from 'svelte/transition';
 
 	let { class: c, ...props } = $props();
 </script>
 
-<div class="{c} border border-(--o) bg-(--bg) p-6 rounded-xl" {...props}>
+<div in:slide out:slide class="{c} outline outline-(--o) bg-(--bg) p-6 rounded-xl" {...props}>
 	<form method="POST" action="/account/login">
 		<div class="mb-5">
 			<Label.Root for="email">{lang(lS, 'Email', 'Courriel')}:</Label.Root>

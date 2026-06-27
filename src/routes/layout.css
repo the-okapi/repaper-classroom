@@ -52,6 +52,7 @@
 
 :root {
 	font-family: var(--font);
+	vector-effect: non-scaling-stroke;
 }
 
 [data-select-trigger] {
@@ -94,7 +95,6 @@
 .card {
 	position: absolute;
 	width: fit;
-	z-index: 50;
 	top: 3rem;
 	justify-self: center;
 }

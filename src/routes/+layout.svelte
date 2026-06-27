@@ -33,6 +33,6 @@
 
 <NavBar {loggedIn} />
 
-<main>
+<main class="transition-colors bg-(--bg)">
 	{@render children()}
 </main>

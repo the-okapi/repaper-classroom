@@ -2,6 +2,7 @@
 	import { lS, lang } from '$lib/lang.svelte';
 	import { page } from '$app/state';
 	import { Settings, Login, Signup } from '$lib/components';
+	import { slide } from 'svelte/transition';
 
 	let { loggedIn } = $props();
 	
@@ -48,38 +49,44 @@
 </script>
 
 <button
-	class="z-40 fixed bg-(--bg) top-5 left-5 w-10 h-10 border border-(--o) font-[TimesNewRoman] font-black text-2xl rounded-lg cursor-pointer"
+	class="z-50 fixed bg-(--bg) top-5 left-5 w-10 h-10 outline outline-(--o) font-[TimesNewRoman] font-black text-2xl rounded-lg cursor-pointer"
 	onclick={show}
 >
 	R
 </button>
-<div
-	class="{shown
-		? 'visible'
-		: 'opacity-0 invisible'} flex transition-opacity z-40 fixed h-10 top-5 left-17 py-1.5 px-3 border border-(--o) rounded-xl bg-(--bg)"
+{#if shown}
+<div in:slide={{ axis: "x" }} out:slide={{ axis: "x" }}
+	class="flex z-40 fixed h-10 top-5 left-17 py-1.5 px-3 outline outline-(--o) rounded-xl bg-(--bg)"
 >
 	<a class="mx-2 hover:underline" href="/">{lang(lS, 'Home', 'Accueil')}</a>
-	<div class="cardButton">
-		<button class="mx-2 hover:underline cursor-pointer" onclick={showSettings}
+	<div class="cardButton {settings ? 'z-50' : 'z-40'}">
+		<button class="mx-2 hover:underline cursor-pointer whitespace-nowrap" onclick={showSettings}
 			>{lang(lS, 'Settings', 'Paramètres')}</button
 		>
-		<Settings class="{settings ? 'visible' : 'invisible opacity-0'} card transition-opacity" />
+		{#if settings}
+			<Settings class="card" />
+		{/if}
 	</div>
 	{#if !loggedIn}
-		<div class="cardButton">
-			<button class="mx-2 hover:underline cursor-pointer" onclick={showLogin}
+		<div class="cardButton {login ? 'z-50' : 'z-40'}">
+			<button class="mx-2 hover:underline cursor-pointer whitespace-nowrap" onclick={showLogin}
 				>{lang(lS, 'Log In', 'Se Connecter')}</button
 			>
-			<Login class="{login ? 'visible' : 'invisible opacity-0'} card transition-opacity" />
+			{#if login}
+				<Login class="card" />
+			{/if}
 		</div>
-		<div class="cardButton">
-			<button class="mx-2 hover:underline cursor-pointer" onclick={showSignup}
+		<div class="cardButton {signup ? 'z-50' : 'z-40'}">
+			<button class="mx-2 hover:underline cursor-pointer whitespace-nowrap" onclick={showSignup}
 				>{lang(lS, 'Sign Up', "S'inscrire")}</button
 			>
-			<Signup class="{signup ? 'visible' : 'invisible opacity-0'} card transition-opacity" />
+			{#if signup}
+				<Signup class="card" />
+			{/if}
 		</div>
 	{/if}
 </div>
+{/if}
 <h1 class="fixed top-5 text-4xl font-bold text-center w-screen">{getTitle(page.url.pathname)}</h1>
 
 <style>

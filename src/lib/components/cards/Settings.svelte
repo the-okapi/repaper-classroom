@@ -3,6 +3,7 @@
 	import { mode, setMode, setTheme, theme } from 'mode-watcher';
 	import { lS, lang } from '$lib/lang.svelte';
 	import { Label } from 'bits-ui';
+	import { slide } from 'svelte/transition';
 
 	// Light/Dark
 	let modes = [
@@ -85,7 +86,7 @@
 	let { class: c, ...props } = $props();
 </script>
 
-<div class="border border-(--o) p-6 bg-(--bg) rounded-xl {c}" {...props}>
+<div in:slide out:slide class="outline outline-(--o) p-6 bg-(--bg) rounded-xl {c}" {...props}>
 	<div class="w-fit m-auto mb-8">
 		<Label.Root for="mode">Mode:</Label.Root>
 		<Select
