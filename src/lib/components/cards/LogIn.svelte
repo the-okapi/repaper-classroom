@@ -11,7 +11,7 @@
 
 	let error = $state('');
 
-	let loading = $state(false);
+	let loading = $state(true);
 
 	async function onsubmit(event: Event) {
 		event.preventDefault();
@@ -41,7 +41,7 @@
 	{...props}
 >
 	{#if loading}
-		<Loader class="animate-spin text-(--p) absolute m-auto" size={40} />
+		<Loader class="animate-spin text-(--p) absolute m-auto" size={30} />
 	{/if}
 	<form {onsubmit} class={loading ? 'invisible' : 'visible'}>
 		<div class="mb-5 w-50">
