@@ -12,7 +12,7 @@
 	let loggedIn = $state(false);
 
 	onMount(() => {
-		if (data.claims?.data) {
+		if (data.claims) {
 			loggedIn = true;
 		}
 		const lang = localStorage.getItem('classroom-lang');

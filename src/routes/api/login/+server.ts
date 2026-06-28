@@ -1,4 +1,3 @@
-import { resolve } from '$app/paths';
 import type { RequestHandler } from './$types';
 import { json, redirect } from '@sveltejs/kit';
 
@@ -18,6 +17,6 @@ export const POST: RequestHandler = async ({ request, locals }) => {
 			{ status: 400 }
 		);
 	} else {
-		return redirect(303, resolve('/home'));
+		return redirect(303, '/home');
 	}
 };

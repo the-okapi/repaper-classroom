@@ -11,7 +11,7 @@
 
 	let error = $state('');
 
-	let loading = $state(true);
+	let loading = $state(false);
 
 	async function onsubmit(event: Event) {
 		event.preventDefault();
@@ -30,6 +30,9 @@
 		if (response.status === 400) {
 			error = lang(lS, 'Invalid email or password.', 'Mauvais Mot de Passe ou Courriel.');
 			loading = false;
+		} else {
+			loading = false;
+			window.location.reload();
 		}
 	}
 </script>
