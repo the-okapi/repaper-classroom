@@ -1,7 +1,3 @@
-<script lang="ts">
-	import { lS, lang } from '$lib/lang.svelte';
-</script>
-
 <svelte:head>
-	<title>{lang(lS, 'Repaper Classroom', 'Salle de Classe de Repaper')}</title>
+	<title>Repaper Classroom</title>
 </svelte:head>

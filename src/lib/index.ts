@@ -1,5 +1,4 @@
 export type SelectItemType = {
+	label: string;
 	value: string;
-	english: string;
-	french: string;
 };

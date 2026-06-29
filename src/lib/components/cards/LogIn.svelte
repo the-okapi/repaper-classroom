@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { Button, Label } from 'bits-ui';
-	import { lS, lang } from '$lib/lang.svelte';
 	import { slide } from 'svelte/transition';
 	import Loader from '@lucide/svelte/icons/loader-circle';
 
@@ -19,7 +18,7 @@
 		loading = true;
 		error = '';
 
-		const response = await fetch('/api/login', {
+		const response = await fetch('/auth/login', {
 			method: 'POST',
 			body: JSON.stringify({
 				email,
@@ -28,7 +27,7 @@
 		});
 
 		if (response.status === 400) {
-			error = lang(lS, 'Invalid email or password.', 'Mauvais Mot de Passe ou Courriel.');
+			error = 'Invalid Email or Password';
 			loading = false;
 		} else {
 			loading = false;
@@ -49,13 +48,13 @@
 	<form {onsubmit} class={loading ? 'invisible' : 'visible'}>
 		<div class="mb-5 w-50">
 			<Label.Root for="email" class={loading ? 'opacity-50' : ''}
-				>{lang(lS, 'Email', 'Courriel')}:</Label.Root
+				>Email:</Label.Root
 			>
 			<input type="email" id="email" class="w-50" bind:value={email} required />
 		</div>
 		<div class="mb-0.5 w-50">
 			<Label.Root for="password" class={loading ? 'opacity-50' : ''}
-				>{lang(lS, 'Password', 'Mot de Passe')}:</Label.Root
+				>Password:</Label.Root
 			>
 			<input type="password" id="password" class="w-50" bind:value={password} required />
 		</div>
@@ -63,7 +62,7 @@
 			<p class="text-(--red) text-xs">{error}</p>
 		</div>
 		<Button.Root type="submit" class="mt-7 block w-fit m-auto"
-			>{lang(lS, 'Go', 'Aller')}</Button.Root
+			>Go</Button.Root
 		>
 	</form>
 </div>

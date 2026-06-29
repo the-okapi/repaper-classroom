@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { lS, lang } from '$lib/lang.svelte';
 	import { page } from '$app/state';
 	import { Settings, Login } from '$lib/components';
 	import { slide } from 'svelte/transition';
@@ -23,11 +22,11 @@
 	function getTitle(route: string) {
 		switch (route) {
 			case '/':
-				return lang(lS, 'Repaper Classroom', 'Salle de Classe de Repaper');
+				return 'Repaper Classroom';
 			case '/create':
-				return lang(lS, 'Create', 'Créer');
+				return 'Create a Class';
 			case '/home':
-				return lang(lS, 'Home', 'Accueil');
+				return 'Home';
 		}
 	}
 
@@ -40,16 +39,8 @@
 	}
 
 	async function logOut() {
-		if (
-			confirm(
-				lang(
-					lS,
-					'Are you sure you would like to log out?',
-					'Êtes-vous sûr que vous voulez vous déconnecter?'
-				)
-			)
-		) {
-			await fetch('/api/signout', {
+		if (confirm('Are you sure you would like to log out?')) {
+			await fetch('/auth/signout', {
 				method: 'POST'
 			});
 			window.location.reload();
@@ -75,21 +66,21 @@
 	>
 		{#if loggedIn}
 			<a class="mx-2 h-fit m-auto hover:underline" href="/home" onclick={link}
-				>{lang(lS, 'Home', 'Accueil')}</a
+				>Home</a
 			>
 			<button class="mx-2 hover:underline cursor-pointer whitespace-nowrap" onclick={logOut}>
-				{lang(lS, 'Log Out', 'Se Déconnecter')}
+				Log Out
 			</button>
 		{:else}
 			<a class="mx-2 h-fit m-auto hover:underline" href="/" onclick={link}
-				>{lang(lS, 'Home', 'Accueil')}</a
+				>Home</a
 			>
 			<a class="mx-2 h-fit m-auto hover:underline" href="/create" onclick={link}
-				>{lang(lS, 'Create', 'Créer')}</a
+				>Create</a
 			>
 			<div class="cardButton h-fit m-auto {login ? 'z-50' : 'z-40'}">
 				<button class="mx-2 hover:underline cursor-pointer whitespace-nowrap" onclick={showLogin}
-					>{lang(lS, 'Log In', 'Se Connecter')}</button
+					>Log In</button
 				>
 				{#if login}
 					<Login class="card" />
@@ -98,7 +89,7 @@
 		{/if}
 		<div class="cardButton h-fit m-auto {settings ? 'z-50' : 'z-40'}">
 			<button class="mx-2 hover:underline cursor-pointer whitespace-nowrap" onclick={showSettings}
-				>{lang(lS, 'Settings', 'Paramètres')}</button
+				>Settings</button
 			>
 			{#if settings}
 				<Settings class="card" />

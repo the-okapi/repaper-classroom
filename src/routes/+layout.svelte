@@ -4,7 +4,6 @@
 	import favicon from '$lib/assets/favicon.png';
 	import { NavBar } from '$lib/components';
 	import { onMount } from 'svelte';
-	import { lS } from '$lib/lang.svelte';
 	import type { LayoutProps } from './$types';
 
 	let { data, children }: LayoutProps = $props();
@@ -14,12 +13,6 @@
 	onMount(() => {
 		if (data.claims) {
 			loggedIn = true;
-		}
-		const lang = localStorage.getItem('classroom-lang');
-		if (lang === 'en') {
-			lS.lang = 'en';
-		} else if (lang === 'fr') {
-			lS.lang = 'fr';
 		}
 	});
 </script>

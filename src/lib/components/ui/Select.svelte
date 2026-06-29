@@ -1,7 +1,6 @@
 <script lang="ts">
 	import { SelectC, SelectItem } from '$lib/components';
 	import type { SelectItemType } from '$lib';
-	import { lS, lang } from '$lib/lang.svelte';
 
 	let {
 		options,
@@ -25,7 +24,7 @@
 <SelectC
 	bind:value
 	onValueChange={onC}
-	trigger={lang(lS, selectedOptionLabel?.english, selectedOptionLabel?.french)}
+	trigger={selectedOptionLabel?.label}
 	{...props}
 >
 	{#each options as option, i (i + option.value)}
