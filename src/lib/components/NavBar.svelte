@@ -23,8 +23,8 @@
 		switch (route) {
 			case '/':
 				return 'Repaper Classroom';
-			case '/create':
-				return 'Create a Class';
+			case '/signup':
+				return 'Sign Up';
 			case '/home':
 				return 'Home';
 		}
@@ -71,7 +71,7 @@
 			</button>
 		{:else}
 			<a class="mx-2 h-fit m-auto hover:underline" href="/" onclick={link}>Home</a>
-			<a class="mx-2 h-fit m-auto hover:underline" href="/create" onclick={link}>Create</a>
+			<a class="mx-2 h-fit m-auto hover:underline" href="/signup" onclick={link}>Sign Up</a>
 			<div class="cardButton h-fit m-auto {login ? 'z-50' : 'z-40'}">
 				<button class="mx-2 hover:underline cursor-pointer whitespace-nowrap" onclick={showLogin}
 					>Log In</button

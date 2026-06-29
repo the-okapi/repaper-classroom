@@ -22,7 +22,7 @@
 </script>
 
 <svelte:head>
-	<title>Create a Class</title>
+	<title>Sign Up</title>
 </svelte:head>
 
 <div class="p-20 m-auto flex items-center justify-center w-screen h-screen">
@@ -60,7 +60,6 @@
 						required
 					/>
 				</div>
-				<hr class="my-5 w-60" />
 				{#if form?.fail || error}
 					<div class="w-50 flex justify-center bg-red-500">
 						<p class="absolute text-(--red)">{form?.message || error}</p>
