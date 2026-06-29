@@ -65,19 +65,13 @@
 		class="flex z-40 fixed h-10 top-5 left-17 py-1.5 px-3 outline outline-(--o) rounded-xl bg-(--bg)"
 	>
 		{#if loggedIn}
-			<a class="mx-2 h-fit m-auto hover:underline" href="/home" onclick={link}
-				>Home</a
-			>
+			<a class="mx-2 h-fit m-auto hover:underline" href="/home" onclick={link}>Home</a>
 			<button class="mx-2 hover:underline cursor-pointer whitespace-nowrap" onclick={logOut}>
 				Log Out
 			</button>
 		{:else}
-			<a class="mx-2 h-fit m-auto hover:underline" href="/" onclick={link}
-				>Home</a
-			>
-			<a class="mx-2 h-fit m-auto hover:underline" href="/create" onclick={link}
-				>Create</a
-			>
+			<a class="mx-2 h-fit m-auto hover:underline" href="/" onclick={link}>Home</a>
+			<a class="mx-2 h-fit m-auto hover:underline" href="/create" onclick={link}>Create</a>
 			<div class="cardButton h-fit m-auto {login ? 'z-50' : 'z-40'}">
 				<button class="mx-2 hover:underline cursor-pointer whitespace-nowrap" onclick={showLogin}
 					>Log In</button

@@ -21,12 +21,7 @@
 	}
 </script>
 
-<SelectC
-	bind:value
-	onValueChange={onC}
-	trigger={selectedOptionLabel?.label}
-	{...props}
->
+<SelectC bind:value onValueChange={onC} trigger={selectedOptionLabel?.label} {...props}>
 	{#each options as option, i (i + option.value)}
 		<SelectItem value={option} {styling} c={itemClass} />
 	{/each}

@@ -47,22 +47,16 @@
 	{/if}
 	<form {onsubmit} class={loading ? 'invisible' : 'visible'}>
 		<div class="mb-5 w-50">
-			<Label.Root for="email" class={loading ? 'opacity-50' : ''}
-				>Email:</Label.Root
-			>
+			<Label.Root for="email" class={loading ? 'opacity-50' : ''}>Email:</Label.Root>
 			<input type="email" id="email" class="w-50" bind:value={email} required />
 		</div>
 		<div class="mb-0.5 w-50">
-			<Label.Root for="password" class={loading ? 'opacity-50' : ''}
-				>Password:</Label.Root
-			>
+			<Label.Root for="password" class={loading ? 'opacity-50' : ''}>Password:</Label.Root>
 			<input type="password" id="password" class="w-50" bind:value={password} required />
 		</div>
 		<div class="absolute w-50 text-center">
 			<p class="text-(--red) text-xs">{error}</p>
 		</div>
-		<Button.Root type="submit" class="mt-7 block w-fit m-auto"
-			>Go</Button.Root
-		>
+		<Button.Root type="submit" class="mt-7 block w-fit m-auto">Go</Button.Root>
 	</form>
 </div>

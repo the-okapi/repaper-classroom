@@ -7,9 +7,8 @@ export const actions = {
 		const name = String(formData.get('name') ?? '');
 		const email = String(formData.get('email') ?? '');
 		const password = String(formData.get('password') ?? '');
-		const className = String(formData.get('class-name') ?? '');
 
-		const { data, error: signUpError } = await locals.supabase.auth.signUp({
+		const { error: signUpError } = await locals.supabase.auth.signUp({
 			email,
 			password,
 			options: {
@@ -21,30 +20,7 @@ export const actions = {
 		});
 
 		if (signUpError) {
-			return fail(400, { fail: true, message: signUpError.message });
-		}
-
-		const { data: classData, error: insertError } = await locals.supabase
-			.from('classes')
-			.insert({
-				name: className,
-				owner: data.user?.id
-			})
-			.select('id');
-
-		if (insertError) {
-			return fail(400, { fail: true, message: insertError.message });
-		}
-
-		const { error } = await locals.supabase
-			.from('users')
-			.update({
-				class: classData[0].id
-			})
-			.eq('id', data.user?.id);
-
-		if (error) {
-			return fail(400, { fail: true, message: error.message });
+			return fail(400, { fail: true, message: signUpError.message, name, email });
 		}
 
 		redirect(303, '/home');
