@@ -14,7 +14,6 @@ export const actions = {
 			options: {
 				data: {
 					name,
-					admin: "true"
 				},
 				emailRedirectTo: 'https://repaper.unlimitedstuffltd.com/home'
 			}

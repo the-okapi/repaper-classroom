@@ -38,15 +38,18 @@ export const actions = {
 		}).select('id');
 
 		if (insertError) {
+			console.log(insertError);
 			return fail(500, { failure: true, message: insertError.message });
 		}
 
-		const { error: updateError } = await locals.supabase.from('users').update({
-			class: data[0].id
-		}).eq('id', user.id);
+		const { error: updateError } = await locals.supabase.from('class_memberships').insert({
+			user: user.id,
+			class: data[0].id,
+			admin: true
+		});
 
 		if (updateError) {
-			return fail(500, { failure: true, message: updateError.message});
+			return fail(500, { failure: true, message: updateError.message });
 		}
 
 		return { success: true };
