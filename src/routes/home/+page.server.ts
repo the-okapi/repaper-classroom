@@ -2,18 +2,45 @@ import { fail, redirect } from '@sveltejs/kit';
 import type { Actions, PageServerLoad } from './$types';
 
 export const load: PageServerLoad = async ({ locals }) => {
-	const { data: { user } } = await locals.supabase.auth.getUser();
+	const {
+		data: { user }
+	} = await locals.supabase.auth.getUser();
 	if (!user) {
+		console.log('redirect');
 		redirect(303, '/');
 	}
 
-	const { data } = await locals.supabase.from('users').select().eq('id', user.id);
+	const { data, error } = await locals.supabase
+		.from('class_memberships')
+		.select('class ( id, name )')
+		.eq('user', user.id)
+		.eq('owner', true)
 
-	if (!data) {
-		redirect(303, '/');
+	if (error) {
+		console.log(error, 'select from class');
+		redirect(303, '/error');
 	}
 
-	return { user: data[0] };
+	const classes = [];
+
+	for (let i = 0; i < data.length; i++) {
+		const { data: studentsData, error: studentsError } = await locals.supabase
+			.from('class_memberships')
+			.select('user ( id, name )')
+			.eq('class', data[i].class.id);
+		
+		if (studentsError) {
+			console.log(studentsError, 'select from class memberships');
+			redirect(303, '/error');
+		}
+
+		classes.push({
+			class: data[i].class,
+			students: studentsData
+		});
+	}
+
+	return { classes };
 };
 
 export const actions = {
@@ -32,10 +59,12 @@ export const actions = {
 			return fail(500, { failure: true, message: error.message });
 		}
 
-		const { data, error: insertError } = await locals.supabase.from('classes').insert({
-			name: className,
-			owner: user.id
-		}).select('id');
+		const { data, error: insertError } = await locals.supabase
+			.from('classes')
+			.insert({
+				name: className
+			})
+			.select('id');
 
 		if (insertError) {
 			console.log(insertError);
@@ -45,7 +74,7 @@ export const actions = {
 		const { error: updateError } = await locals.supabase.from('class_memberships').insert({
 			user: user.id,
 			class: data[0].id,
-			admin: true
+			owner: true
 		});
 
 		if (updateError) {

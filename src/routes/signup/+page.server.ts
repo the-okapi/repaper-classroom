@@ -13,7 +13,7 @@ export const actions = {
 			password,
 			options: {
 				data: {
-					name,
+					name
 				},
 				emailRedirectTo: 'https://repaper.unlimitedstuffltd.com/home'
 			}

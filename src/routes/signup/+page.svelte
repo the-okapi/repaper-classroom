@@ -23,19 +23,26 @@
 		<Loader class="animate-spin text-(--p) absolute m-auto" size={40} />
 	{:else}
 		<div class="m-auto">
-			<form method="POST" class="w-fit flex flex-col items-center" use:enhance={({ cancel }) => {
-				loading = true;
-				error = null;
-				if (password !== confirmPassword) {
-					cancel();
-					error = "Password and Confirm Password don't match.";
-				}
+			<form
+				method="POST"
+				class="w-fit flex flex-col items-center"
+				use:enhance={({ cancel }) => {
+					loading = true;
+					error = null;
+					if (password !== confirmPassword) {
+						loading = false;
+						cancel();
+						error = "Password and Confirm Password don't match.";
+					}
 
-				return ({ update }) => {
-					loading = false;
-					update();
-				}
-			}}>
+					return ({ update, result }) => {
+						if (result.status === 400) {
+							loading = false;
+						}
+						update();
+					};
+				}}
+			>
 				<div class="text-left mb-5">
 					<Label.Root for="name">Your Name:</Label.Root><br />
 					<input id="name" type="text" value={form?.name} name="name" class="w-50" required />
