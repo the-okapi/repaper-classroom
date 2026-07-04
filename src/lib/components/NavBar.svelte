@@ -53,7 +53,7 @@
 </script>
 
 <button
-	class="z-50 fixed bg-(--bg) top-5 left-5 w-10 h-10 outline outline-(--o) font-[TimesNewRoman] font-black text-2xl rounded-lg cursor-pointer"
+	class="z-50 backdrop-blur-xs fixed top-5 left-5 w-10 h-10 outline outline-(--o) font-[TimesNewRoman] font-black text-2xl rounded-lg cursor-pointer"
 	onclick={show}
 >
 	R
@@ -62,7 +62,7 @@
 	<div
 		in:slide={{ axis: 'x' }}
 		out:slide={{ axis: 'x' }}
-		class="flex z-40 fixed h-10 top-5 left-17 py-1.5 px-3 outline outline-(--o) rounded-xl bg-(--bg)"
+		class="flex z-40 fixed h-10 top-5 left-17 py-1.5 px-3 outline outline-(--o) rounded-xl backdrop-blur-xs"
 	>
 		{#if loggedIn}
 			<a class="mx-2 h-fit m-auto hover:underline" href="/home" onclick={link}>Home</a>

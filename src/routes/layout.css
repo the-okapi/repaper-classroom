@@ -176,5 +176,37 @@ input:focus {
 	position: fixed;
 	top: 0;
 	left: 0;
-	z-index: 60;
+	z-index: 30;
+}
+
+[data-alert-dialog-content] {
+	background-color: var(--bg);
+	z-index: 50;
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	transform: translateX(-50%) translateY(-50%);
+	width: 35rem;
+	height: 20rem;
+	border: 1px solid var(--o);
+	border-radius: 1rem;
+}
+
+[data-tabs-list] {
+	border-radius: 0.75rem;
+	border: 1px solid var(--o);
+	padding: 0.25rem;
+	display: flex;
+	height: 2.5rem;
+}
+
+[data-tabs-trigger] {
+	width: 50%;
+	padding: 0.25rem;
+	border-radius: 0.5rem;
+	cursor: pointer;
+}
+
+[data-tabs-trigger][data-state='active'] {
+	background-color: color-mix(in oklab, var(--p) 30%, transparent);
 }

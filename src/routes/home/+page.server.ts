@@ -14,7 +14,7 @@ export const load: PageServerLoad = async ({ locals }) => {
 		.from('class_memberships')
 		.select('class ( id, name )')
 		.eq('user', user.id)
-		.eq('owner', true)
+		.eq('owner', true);
 
 	if (error) {
 		console.log(error, 'select from class');
@@ -28,7 +28,7 @@ export const load: PageServerLoad = async ({ locals }) => {
 			.from('class_memberships')
 			.select('user ( id, name )')
 			.eq('class', data[i].class.id);
-		
+
 		if (studentsError) {
 			console.log(studentsError, 'select from class memberships');
 			redirect(303, '/error');
@@ -56,7 +56,7 @@ export const actions = {
 		if (!user) {
 			return redirect(303, '/');
 		} else if (error) {
-			return fail(500, { failure: true, message: error.message });
+			return fail(500, { createFailure: true, message: error.message });
 		}
 
 		const { data, error: insertError } = await locals.supabase
@@ -68,7 +68,7 @@ export const actions = {
 
 		if (insertError) {
 			console.log(insertError);
-			return fail(500, { failure: true, message: insertError.message });
+			return fail(500, { createFailure: true, message: insertError.message });
 		}
 
 		const { error: updateError } = await locals.supabase.from('class_memberships').insert({
@@ -78,7 +78,7 @@ export const actions = {
 		});
 
 		if (updateError) {
-			return fail(500, { failure: true, message: updateError.message });
+			return fail(500, { createFailure: true, message: updateError.message });
 		}
 
 		return { success: true };
