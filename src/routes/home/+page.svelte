@@ -7,7 +7,7 @@
 </script>
 
 <svelte:head>
-	<title>Home</title>
+	<title>Home - Repaper Classroom</title>
 </svelte:head>
 
 <div class="pt-24 px-20 pb-10 grid grid-cols-3">
@@ -25,7 +25,10 @@
 			</form>
 		</div>
 		{#each data.classes as classData, i (i)}
-			<a class="box cursor-pointer hover:bg-(--fg)/5 transition-colors" href="/class/{classData.id}">
+			<a
+				class="box cursor-pointer hover:bg-(--fg)/5 transition-colors"
+				href="/class/{classData.id}"
+			>
 				<h2 class="font-bold text-4xl">{classData.name}</h2>
 			</a>
 		{/each}

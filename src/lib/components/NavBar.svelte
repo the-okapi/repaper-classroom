@@ -19,17 +19,6 @@
 		login = !login;
 	}
 
-	function getTitle(route: string) {
-		switch (route) {
-			case '/':
-				return 'Repaper Classroom';
-			case '/signup':
-				return 'Sign Up';
-			case '/home':
-				return 'Home';
-		}
-	}
-
 	function show() {
 		shown = !shown;
 		if (!shown) {
@@ -93,7 +82,7 @@
 		</div>
 	</div>
 {/if}
-<h1 class="fixed top-5 text-4xl font-bold text-center w-screen">{getTitle(page.url.pathname)}</h1>
+<h1 class="fixed top-5 text-4xl font-bold text-center w-screen">{page.data.title}</h1>
 
 <style>
 	.cardButton {

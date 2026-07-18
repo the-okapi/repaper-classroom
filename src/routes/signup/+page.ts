@@ -6,4 +6,8 @@ export const load: PageLoad = async ({ parent }) => {
 	if (data.claims) {
 		redirect(307, '/home');
 	}
+
+	return {
+		title: 'Sign Up'
+	};
 };

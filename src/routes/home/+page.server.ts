@@ -7,7 +7,6 @@ export const load: PageServerLoad = async ({ locals }) => {
 	} = await locals.supabase.auth.getUser();
 
 	if (!user) {
-		console.log('redirect');
 		redirect(303, '/');
 	}
 
@@ -45,7 +44,7 @@ export const load: PageServerLoad = async ({ locals }) => {
 
 	const classes = data.map((c) => c.class);
 
-	return { classes, organization };
+	return { classes, organization, title: 'Home' };
 };
 
 export const actions = {
