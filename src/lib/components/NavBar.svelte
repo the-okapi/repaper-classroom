@@ -45,9 +45,11 @@
 <AlertDialog bind:open={logOutOpen}>
 	<p class="font-semibold text-2xl text-center mb-8">Are you sure you would like to log out?</p>
 	<div class="flex gap-4 m-auto w-fit">
-        <Button.Root class="text-lg py-2.5! px-5!" onclick={() => logOutOpen = false}>Cancel</Button.Root>
-        <Button.Root class="text-lg py-2.5! px-5!" onclick={logOutAction}>Go</Button.Root>
-    </div>
+		<Button.Root class="text-lg py-2.5! px-5!" onclick={() => (logOutOpen = false)}
+			>Cancel</Button.Root
+		>
+		<Button.Root class="text-lg py-2.5! px-5!" onclick={logOutAction}>Go</Button.Root>
+	</div>
 </AlertDialog>
 
 <button
@@ -64,7 +66,10 @@
 	>
 		{#if loggedIn}
 			<a class="mx-2 h-fit m-auto hover:underline" href="/home" onclick={link}>Home</a>
-			<button class="mx-2 hover:underline cursor-pointer whitespace-nowrap" onclick={() => logOutOpen = true}>
+			<button
+				class="mx-2 hover:underline cursor-pointer whitespace-nowrap"
+				onclick={() => (logOutOpen = true)}
+			>
 				Log Out
 			</button>
 		{:else}
@@ -91,7 +96,11 @@
 		</div>
 	</div>
 {/if}
-<h1 class="fixed py-5 top-0 text-4xl font-bold text-center w-screen bg-(--bg) border-b border-(--o)">{page.data.title}</h1>
+<h1
+	class="fixed py-5 top-0 text-4xl font-bold text-center w-screen bg-(--bg) border-b border-(--o)"
+>
+	{page.data.title}
+</h1>
 
 <style>
 	.cardButton {

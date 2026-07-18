@@ -9,3 +9,4 @@ export { default as Class } from '$lib/components/cards/Class.svelte';
 export { default as Loader } from '$lib/components/ui/Loader.svelte';
 export { default as AlertDialog } from '$lib/components/ui/AlertDialog.svelte';
 export { default as Background } from '$lib/components/ui/Background.svelte';
+export { default as CreateStudent } from '$lib/components/cards/CreateStudent.svelte';
