@@ -12,7 +12,7 @@ export const load: PageServerLoad = async ({ locals, params }) => {
 
 	const { data, error } = await locals.supabase
 		.from('class_memberships')
-		.select('class ( name )')
+		.select('class ( name, organization ( id, name ) )')
 		.eq('class', params.id)
 		.eq('user', user.id)
 		.eq('owner', true);
@@ -35,5 +35,5 @@ export const load: PageServerLoad = async ({ locals, params }) => {
 		redirect(303, '/error');
 	}
 
-	return { classData, title: data[0].class.name };
+	return { students: classData, title: data[0].class.name, organization: data[0].class.organization };
 };

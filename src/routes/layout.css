@@ -3,6 +3,7 @@
 .light {
 	color-scheme: light;
 	--bg: #fff0d5;
+	--a: #f7e8cd;
 	--fg: #000;
 	--p: #774e24;
 	--p-fg: #fff0d5;
@@ -15,7 +16,8 @@
 
 .dark {
 	color-scheme: dark;
-	--bg: #222;
+	--bg: #222222;
+	--a: #2b2b2b;
 	--fg: #fafafa;
 	--p: #00dfdf;
 	--p-fg: #0a0a0a;
@@ -24,6 +26,10 @@
 	--c: #00dfdf;
 	background-color: var(--bg);
 	color: var(--fg);
+}
+
+main * {
+	z-index: 10 !important;
 }
 
 [data-theme='georgia'] {
@@ -77,6 +83,7 @@
 :root {
 	font-family: var(--font);
 	vector-effect: non-scaling-stroke;
+	overscroll-behavior: none;
 }
 
 [data-select-trigger] {
@@ -128,6 +135,7 @@ input {
 	color: var(--fg);
 	border-radius: 0.75rem;
 	padding: 0.25rem 0.5rem;
+	background-color: var(--bg);
 }
 
 input:disabled {
@@ -188,7 +196,8 @@ input:focus {
 	left: 50%;
 	transform: translateX(-50%) translateY(-50%);
 	width: 35rem;
-	height: 25rem;
+	height: fit-content;
+	padding: 2.5rem;
 	border: 1px solid var(--o);
 	border-radius: 1.5rem;
 }
@@ -224,4 +233,5 @@ input:focus {
 	display: flex;
 	align-items: center;
 	justify-content: center;
+	background-color: var(--bg);
 }

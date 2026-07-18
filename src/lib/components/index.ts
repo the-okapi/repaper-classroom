@@ -7,3 +7,5 @@ export { default as Login } from '$lib/components/cards/LogIn.svelte';
 export { default as Tabs } from '$lib/components/ui/Tabs.svelte';
 export { default as Class } from '$lib/components/cards/Class.svelte';
 export { default as Loader } from '$lib/components/ui/Loader.svelte';
+export { default as AlertDialog } from '$lib/components/ui/AlertDialog.svelte';
+export { default as Background } from '$lib/components/ui/Background.svelte';
