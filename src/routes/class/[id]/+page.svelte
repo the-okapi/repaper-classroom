@@ -15,5 +15,12 @@
             <p class="text-center text-lg mt-10">There are no students in this class.</p>
         {/if}
     </div>
-    <div class="w-full bg-(--bg) rounded-xl border border-(--o) h-[80vh]"></div>
+    <div class="w-full flex flex-col gap-4 h-[80vh]">
+        <div class="w-full h-full bg-(--bg) rounded-xl border border-(--o)">
+            
+        </div>
+        <div class="w-full h-full bg-(--bg) rounded-xl border border-(--o)">
+
+        </div>
+    </div>
 </div>
