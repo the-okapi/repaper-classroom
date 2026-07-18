@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { Button, Label } from 'bits-ui';
 	import type { PageProps } from './$types';
-	import Loader from '@lucide/svelte/icons/loader-circle';
+	import { Loader } from '$lib/components';
 	import { enhance } from '$app/forms';
 
 	let { form }: PageProps = $props();
@@ -20,7 +20,7 @@
 
 <div class="p-20 m-auto flex items-center justify-center w-screen h-screen">
 	{#if loading}
-		<Loader class="animate-spin text-(--p) absolute m-auto" size={40} />
+		<Loader />
 	{:else}
 		<div class="m-auto">
 			<form

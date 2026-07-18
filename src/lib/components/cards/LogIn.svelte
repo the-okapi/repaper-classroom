@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { Button, Label } from 'bits-ui';
 	import { slide } from 'svelte/transition';
-	import Loader from '@lucide/svelte/icons/loader-circle';
+	import { Loader } from '$lib/components';
 
 	let { class: c, ...props } = $props();
 
@@ -43,7 +43,7 @@
 	{...props}
 >
 	{#if loading}
-		<Loader class="animate-spin text-(--p) absolute m-auto" size={30} />
+		<Loader size={30} />
 	{/if}
 	<form {onsubmit} class={loading ? 'invisible' : 'visible'}>
 		<div class="mb-5 w-50">

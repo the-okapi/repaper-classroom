@@ -155,6 +155,7 @@ input:focus {
 	border-radius: 0.75rem;
 	cursor: pointer;
 	opacity: 0.9;
+	@apply transition-opacity;
 }
 
 [data-button-root][href] {
@@ -187,26 +188,40 @@ input:focus {
 	left: 50%;
 	transform: translateX(-50%) translateY(-50%);
 	width: 35rem;
-	height: 20rem;
+	height: 25rem;
 	border: 1px solid var(--o);
-	border-radius: 1rem;
+	border-radius: 1.5rem;
 }
 
 [data-tabs-list] {
 	border-radius: 0.75rem;
 	border: 1px solid var(--o);
-	padding: 0.25rem;
 	display: flex;
 	height: 2.5rem;
 }
 
 [data-tabs-trigger] {
-	width: 50%;
 	padding: 0.25rem;
 	border-radius: 0.5rem;
 	cursor: pointer;
+	white-space: nowrap;
+	width: 13.5rem;
+	max-height: 100%;
+	height: 2rem;
 }
 
 [data-tabs-trigger][data-state='active'] {
 	background-color: color-mix(in oklab, var(--p) 30%, transparent);
+}
+
+.box {
+	margin: auto;
+	width: 25rem;
+	height: 20rem;
+	border: 1px solid var(--o);
+	border-radius: 0.75rem;
+	padding: 0.75rem;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 }

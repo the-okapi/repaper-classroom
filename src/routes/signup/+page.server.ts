@@ -14,12 +14,12 @@ export const actions = {
 			options: {
 				data: {
 					name
-				},
-				emailRedirectTo: 'https://repaper.unlimitedstuffltd.com/home'
+				}
 			}
 		});
 
 		if (signUpError) {
+			console.log(JSON.stringify(signUpError));
 			return fail(400, { fail: true, message: signUpError.message, name, email });
 		}
 

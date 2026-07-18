@@ -4,4 +4,6 @@ export { default as SelectC } from '$lib/components/ui/SelectC.svelte';
 export { default as SelectItem } from '$lib/components/ui/SelectItem.svelte';
 export { default as Settings } from '$lib/components/cards/Settings.svelte';
 export { default as Login } from '$lib/components/cards/LogIn.svelte';
-export { default as Loading } from '$lib/components/ui/Loading.svelte';
+export { default as Tabs } from '$lib/components/ui/Tabs.svelte';
+export { default as Class } from '$lib/components/cards/Class.svelte';
+export { default as Loader } from '$lib/components/ui/Loader.svelte';
