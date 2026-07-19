@@ -47,10 +47,11 @@
 						<div class="px-5 py-3 flex">
 							<p class="text-xl m-auto mr-4">{member.user.name}</p>
 							<div class="w-full flex items-center">
-								<p class="align-middle font-mono text-base bg-(--p)/20 py-1.5 px-3 rounded-lg">
-									{member.user.email}
-								</p>
-								
+								{#if member.owner}
+									<p class="text-base bg-(--red) text-(--bg) py-0.5 px-3 rounded-full">Admin</p>
+								{:else}
+									<p class="text-base bg-cyan-600 text-(--bg) py-0.5 px-3 rounded-full">Member</p>
+								{/if}
 							</div>
 							<Button.Root>Manage</Button.Root>
 							{#if members.length === 1}
