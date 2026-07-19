@@ -14,15 +14,15 @@
 	{#if data.organization}
 		{#if data.organization.owner}
 			<div class="box">
-				<a
+				<button
 					class="box transition-colors cursor-pointer hover:bg-(--fg)/5! absolute"
-					href="/organization/{data.organization.id}"
+					onclick={() => window.location.assign('/organization/' + data.organization.id)}
 				>
 					<div>
 						<h2 class="font-bold text-4xl text-center">{data.organization.name}</h2>
 						<h3 class="text-center mt-3">Manage Organization</h3>
 					</div>
-				</a>
+				</button>
 			</div>
 		{/if}
 		<div class="box" in:fade>
@@ -39,15 +39,15 @@
 		</div>
 		{#each data.classes as classData, i (i)}
 			<div class="box">
-				<a
+				<button
 					class="transition-colors box cursor-pointer hover:bg-(--fg)/5! absolute"
-					href="/class/{classData.id}"
+					onclick={() => window.location.assign('/class/' + classData.id)}
 				>
 					<div>
 						<h2 class="font-bold text-4xl text-center">{classData.name}</h2>
 						<h3 class="text-center mt-3">Manage Class</h3>
 					</div>
-				</a>
+				</button>
 			</div>
 		{/each}
 	{:else}

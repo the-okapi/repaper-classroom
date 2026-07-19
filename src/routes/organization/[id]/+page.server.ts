@@ -25,8 +25,14 @@ export const load: PageServerLoad = async ({ locals, params }) => {
 		return redirect(303, '/error');
 	}
 
+	const members = locals.supabase
+		.from('organization_memberships')
+		.select('user ( id, name ), owner')
+		.eq('organization', params.id);
+
 	return {
-		title: data[0].organization.name
+		title: data[0].organization.name,
+		members
 	};
 };
 
