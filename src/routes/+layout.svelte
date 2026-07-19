@@ -33,6 +33,6 @@
 <div class="nav-bar">
 	<NavBar {loggedIn} />
 </div>
-<main class="transition-colors bg-(--bg)">
+<main class="bg-(--bg) transition-colors">
 	{@render children()}
 </main>

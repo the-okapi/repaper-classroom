@@ -21,8 +21,8 @@
 </svelte:head>
 
 <AlertDialog bind:open={confirmOpen}>
-	<p class="font-semibold text-center text-xl">{confirmText}</p>
-	<div class="flex gap-4 m-auto w-fit">
+	<p class="text-center text-xl font-semibold">{confirmText}</p>
+	<div class="m-auto flex w-fit gap-4">
 		<Button.Root onclick={() => (confirmOpen = false)}>Cancel</Button.Root>
 		<Button.Root
 			onclick={() => {
@@ -33,24 +33,24 @@
 	</div>
 </AlertDialog>
 
-<div class="pt-25 px-10 flex gap-4">
+<div class="flex gap-4 px-10 pt-25">
 	<div
-		class="w-full overflow-scroll overscroll-none h-[80vh] bg-(--bg) border border-(--o) rounded-xl flex items-center justify-center p-5"
+		class="flex h-[80vh] w-full items-center justify-center overflow-scroll overscroll-none rounded-xl border border-(--o) bg-(--bg) p-5"
 	>
 		{#await data.members}
 			<Loader />
 		{:then { data: members, error }}
 			{#if members}
 				<div class="h-full w-full">
-					<h2 class="text-center font-bold text-3xl mb-5">List of Members</h2>
+					<h2 class="mb-5 text-center text-3xl font-bold">List of Members</h2>
 					{#each members as member, i (i)}
-						<div class="px-5 py-3 flex">
-							<p class="text-xl m-auto mr-4">{member.user.name}</p>
-							<div class="w-full flex items-center">
+						<div class="flex px-5 py-3">
+							<p class="m-auto mr-4 text-xl">{member.user.name}</p>
+							<div class="flex w-full items-center">
 								{#if member.owner}
-									<p class="text-base bg-(--red) text-(--bg) py-0.5 px-3 rounded-full">Admin</p>
+									<p class="rounded-full bg-(--red) px-3 py-0.5 text-base text-(--bg)">Admin</p>
 								{:else}
-									<p class="text-base bg-cyan-600 text-(--bg) py-0.5 px-3 rounded-full">Member</p>
+									<p class="rounded-full bg-cyan-600 px-3 py-0.5 text-base text-(--bg)">Member</p>
 								{/if}
 							</div>
 							<Button.Root>Manage</Button.Root>
@@ -72,7 +72,7 @@
 							{/if}
 						</div>
 						{#if i !== members.length - 1}
-							<hr class="w-[90%] m-auto" />
+							<hr class="m-auto w-[90%]" />
 						{/if}
 					{/each}
 				</div>
@@ -82,23 +82,23 @@
 			{/if}
 		{/await}
 	</div>
-	<div class="h-[80vh] w-full flex flex-col gap-4">
+	<div class="flex h-[80vh] w-full flex-col gap-4">
 		<div class="flex h-full gap-4">
-			<div class="h-full w-full bg-(--bg) border border-(--o) rounded-xl p-5 flex items-center">
+			<div class="flex h-full w-full items-center rounded-xl border border-(--o) bg-(--bg) p-5">
 				<form action="?/rename" method="POST" class="m-auto">
-					<h2 class="font-bold text-center text-2xl">Rename Organization</h2>
+					<h2 class="text-center text-2xl font-bold">Rename Organization</h2>
 					<div class="mx-auto my-5 w-fit">
 						<Label.Root for="name">Rename To:</Label.Root><br />
 						<input type="text" name="name" id="name" />
 					</div>
-					<Button.Root type="submit" class="block m-auto">Go</Button.Root>
+					<Button.Root type="submit" class="m-auto block">Go</Button.Root>
 					{#if form?.renameError}
 						<p class="absolute text-(--red)">{form.message}</p>
 					{/if}
 				</form>
 			</div>
-			<div class="h-full w-full bg-(--bg) border border-(--o) rounded-xl p-5"></div>
+			<div class="h-full w-full rounded-xl border border-(--o) bg-(--bg) p-5"></div>
 		</div>
-		<div class="h-full w-full bg-(--bg) border border-(--o) rounded-xl"></div>
+		<div class="h-full w-full rounded-xl border border-(--o) bg-(--bg)"></div>
 	</div>
 </div>

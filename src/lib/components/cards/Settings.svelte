@@ -59,8 +59,8 @@
 	let { class: c, ...props } = $props();
 </script>
 
-<div in:slide out:slide class="outline outline-(--o) p-6 bg-(--bg) rounded-xl {c}" {...props}>
-	<div class="w-fit m-auto mb-8">
+<div in:slide out:slide class="rounded-xl bg-(--bg) p-6 outline outline-(--o) {c}" {...props}>
+	<div class="m-auto mb-8 w-fit">
 		<Label.Root for="mode">Mode:</Label.Root>
 		<Select
 			id="mode"
@@ -71,7 +71,7 @@
 		/>
 	</div>
 
-	<div class="w-fit m-auto">
+	<div class="m-auto w-fit">
 		<Label.Root for="font">Font:</Label.Root>
 		<Select id="font" options={fonts} bind:value={currentFont} onChange={onFontChange} />
 	</div>

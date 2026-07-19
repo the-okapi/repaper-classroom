@@ -8,7 +8,7 @@
 <Select.Item
 	value={value.value}
 	label={value.label}
-	class="hover:bg-(--fg)/5! z-50 rounded-xl {c} {styling ? value.value : ''}"
+	class="z-50 rounded-xl hover:bg-(--fg)/5! {c} {styling ? value.value : ''}"
 >
 	{#snippet children({ selected })}
 		<div class="flex">

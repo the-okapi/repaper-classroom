@@ -6,8 +6,8 @@
 	<title>Something happened...</title>
 </svelte:head>
 
-<div class="flex items-center justify-center w-screen h-screen">
-	<div class="text-center h-fit">
+<div class="flex h-screen w-screen items-center justify-center">
+	<div class="h-fit text-center">
 		<h1 class="mb-5">Something happened on our end.</h1>
 		<Button.Root class="m-auto" href="/home">Home</Button.Root>
 	</div>

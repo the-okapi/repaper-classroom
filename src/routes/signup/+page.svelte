@@ -18,14 +18,14 @@
 	<title>Sign Up - Repaper Classroom</title>
 </svelte:head>
 
-<div class="p-20 m-auto flex items-center justify-center w-screen h-screen">
+<div class="m-auto flex h-screen w-screen items-center justify-center p-20">
 	{#if loading}
 		<Loader />
 	{:else}
 		<div class="m-auto">
 			<form
 				method="POST"
-				class="w-fit flex flex-col items-center"
+				class="flex w-fit flex-col items-center"
 				use:enhance={({ cancel }) => {
 					loading = true;
 					error = null;
@@ -43,15 +43,15 @@
 					};
 				}}
 			>
-				<div class="text-left mb-5">
+				<div class="mb-5 text-left">
 					<Label.Root for="name">Your Name:</Label.Root><br />
 					<input id="name" type="text" value={form?.name} name="name" class="w-50" required />
 				</div>
-				<div class="text-left mb-5">
+				<div class="mb-5 text-left">
 					<Label.Root for="email">Your Email:</Label.Root><br />
 					<input id="email" type="email" value={form?.email} name="email" class="w-50" required />
 				</div>
-				<div class="text-left mb-5">
+				<div class="mb-5 text-left">
 					<Label.Root for="password">Password:</Label.Root><br />
 					<input
 						id="password"
@@ -73,7 +73,7 @@
 					/>
 				</div>
 				{#if form?.fail || error}
-					<div class="w-50 flex justify-center bg-red-500">
+					<div class="flex w-50 justify-center bg-red-500">
 						<p class="absolute text-(--red)">{form?.message || error}</p>
 					</div>
 				{/if}

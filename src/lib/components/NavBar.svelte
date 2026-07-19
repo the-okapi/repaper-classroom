@@ -43,17 +43,17 @@
 </script>
 
 <AlertDialog bind:open={logOutOpen}>
-	<p class="font-semibold text-2xl text-center mb-8">Are you sure you would like to log out?</p>
-	<div class="flex gap-4 m-auto w-fit">
-		<Button.Root class="text-lg py-2.5! px-5!" onclick={() => (logOutOpen = false)}
+	<p class="mb-8 text-center text-2xl font-semibold">Are you sure you would like to log out?</p>
+	<div class="m-auto flex w-fit gap-4">
+		<Button.Root class="px-5! py-2.5! text-lg" onclick={() => (logOutOpen = false)}
 			>Cancel</Button.Root
 		>
-		<Button.Root class="text-lg py-2.5! px-5!" onclick={logOutAction}>Go</Button.Root>
+		<Button.Root class="px-5! py-2.5! text-lg" onclick={logOutAction}>Go</Button.Root>
 	</div>
 </AlertDialog>
 
 <button
-	class="z-50! backdrop-blur-lg fixed top-5 left-5 w-10 h-10 outline outline-(--o) font-[TimesNewRoman] font-black text-2xl rounded-lg cursor-pointer"
+	class="fixed top-5 left-5 z-50! h-10 w-10 cursor-pointer rounded-lg font-[TimesNewRoman] text-2xl font-black outline outline-(--o) backdrop-blur-lg"
 	onclick={show}
 >
 	R
@@ -62,23 +62,23 @@
 	<div
 		in:slide={{ axis: 'x' }}
 		out:slide={{ axis: 'x' }}
-		class="flex z-40! backdrop-blur-xs fixed h-10 top-5 left-17 py-1.5 px-3 outline outline-(--o) rounded-xl"
+		class="fixed top-5 left-17 z-40! flex h-10 rounded-xl px-3 py-1.5 outline outline-(--o) backdrop-blur-xs"
 	>
 		{#if loggedIn}
-			<a class="mx-2 h-fit m-auto hover:underline" href="/home" onclick={link}>Home</a>
+			<a class="m-auto mx-2 h-fit hover:underline" href="/home" onclick={link}>Home</a>
 			<button
-				class="mx-2 hover:underline cursor-pointer whitespace-nowrap"
+				class="mx-2 cursor-pointer whitespace-nowrap hover:underline"
 				onclick={() => (logOutOpen = true)}
 			>
 				Log Out
 			</button>
 		{:else}
-			<a class="mx-2 h-fit m-auto hover:underline" href="/" onclick={link}>Home</a>
-			<a class="mx-2 h-fit m-auto hover:underline whitespace-nowrap" href="/signup" onclick={link}
+			<a class="m-auto mx-2 h-fit hover:underline" href="/" onclick={link}>Home</a>
+			<a class="m-auto mx-2 h-fit whitespace-nowrap hover:underline" href="/signup" onclick={link}
 				>Sign Up</a
 			>
-			<div class="cardButton h-fit m-auto {login ? 'z-50!' : 'z-40!'}">
-				<button class="mx-2 hover:underline cursor-pointer whitespace-nowrap" onclick={showLogin}
+			<div class="cardButton m-auto h-fit {login ? 'z-50!' : 'z-40!'}">
+				<button class="mx-2 cursor-pointer whitespace-nowrap hover:underline" onclick={showLogin}
 					>Log In</button
 				>
 				{#if login}
@@ -86,8 +86,8 @@
 				{/if}
 			</div>
 		{/if}
-		<div class="cardButton h-fit m-auto {settings ? 'z-50!' : 'z-40!'}">
-			<button class="mx-2 hover:underline cursor-pointer whitespace-nowrap" onclick={showSettings}
+		<div class="cardButton m-auto h-fit {settings ? 'z-50!' : 'z-40!'}">
+			<button class="mx-2 cursor-pointer whitespace-nowrap hover:underline" onclick={showSettings}
 				>Settings</button
 			>
 			{#if settings}
@@ -97,7 +97,7 @@
 	</div>
 {/if}
 <h1
-	class="fixed py-5 top-0 text-4xl font-bold text-center w-screen backdrop-blur-xs border-b border-(--o)"
+	class="fixed top-0 w-screen border-b border-(--o) py-5 text-center text-4xl font-bold backdrop-blur-xs"
 >
 	{page.data.title ?? 'Repaper Classroom'}
 </h1>

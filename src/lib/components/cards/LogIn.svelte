@@ -39,7 +39,7 @@
 <div
 	in:slide
 	out:slide
-	class="{c} outline outline-(--o) bg-(--bg) p-6 rounded-xl flex items-center justify-center"
+	class="{c} flex items-center justify-center rounded-xl bg-(--bg) p-6 outline outline-(--o)"
 	{...props}
 >
 	{#if loading}
@@ -55,8 +55,8 @@
 			<input type="password" id="password" class="w-50" bind:value={password} required />
 		</div>
 		<div class="absolute w-50 text-center">
-			<p class="text-(--red) text-xs">{error}</p>
+			<p class="text-xs text-(--red)">{error}</p>
 		</div>
-		<Button.Root type="submit" class="mt-7 block w-fit m-auto">Go</Button.Root>
+		<Button.Root type="submit" class="m-auto mt-7 block w-fit">Go</Button.Root>
 	</form>
 </div>

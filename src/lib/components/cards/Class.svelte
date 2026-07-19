@@ -10,12 +10,12 @@
 
 <div class="box" in:fade>
 	<div class="text-center">
-		<h2 class="text-center font-bold text-3xl mb-5">{classData.name} Class List</h2>
+		<h2 class="mb-5 text-center text-3xl font-bold">{classData.name} Class List</h2>
 		<AlertDialog.Root>
 			<AlertDialog.Trigger data-button-root>Add Student to Class</AlertDialog.Trigger>
 			<AlertDialog.Portal>
 				<AlertDialog.Overlay />
-				<AlertDialog.Content class="flex justify-center items-center">
+				<AlertDialog.Content class="flex items-center justify-center">
 					<Tabs
 						options={[
 							{ label: 'Add an Existing Student', value: 'add' },
@@ -24,28 +24,28 @@
 						bind:value={tabsValue}
 					>
 						<form method="POST" class="w-110">
-							<h2 class="font-bold text-xl mt-5 mb-3 text-center">
+							<h2 class="mt-5 mb-3 text-center text-xl font-bold">
 								{#if tabsValue === 'add'}
 									Add an Existing Student to {classData.name}
 								{:else}
 									Create a Student for {classData.name}
 								{/if}
 							</h2>
-							<div class="h-32 flex items-center justify-center">
+							<div class="flex h-32 items-center justify-center">
 								<div>
 									{#if tabsValue === 'create'}
-										<div class="w-fit m-auto mb-2">
+										<div class="m-auto mb-2 w-fit">
 											<Label.Root for="name">Name:</Label.Root><br />
 											<input type="text" name="name" id="name" class="w-70" required />
 										</div>
 									{/if}
-									<div class="w-fit m-auto">
+									<div class="m-auto w-fit">
 										<Label.Root for="email">Email:</Label.Root><br />
 										<input type="email" name="email" id="email" class="w-70" required />
 									</div>
 								</div>
 							</div>
-							<div class="mt-4 gap-4 flex w-fit m-auto">
+							<div class="m-auto mt-4 flex w-fit gap-4">
 								<AlertDialog.Cancel data-button-root type="button">Cancel</AlertDialog.Cancel>
 								<Button.Root type="submit" formaction={tabsValue === 'add' ? '?/add' : '?/student'}
 									>Go</Button.Root

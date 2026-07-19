@@ -4,4 +4,4 @@
 	let { size = 40 } = $props();
 </script>
 
-<Loader class="animate-spin text-(--p) absolute m-auto" {size} />
+<Loader class="absolute m-auto animate-spin text-(--p)" {size} />

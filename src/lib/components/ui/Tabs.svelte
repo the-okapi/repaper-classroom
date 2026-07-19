@@ -5,12 +5,12 @@
 </script>
 
 <div>
-	<div data-tabs-list class="w-110 h-10 flex p-1">
+	<div data-tabs-list class="flex h-10 w-110 p-1">
 		{#each options as option, i (i)}
-			<div class="relative w-54 flex items-center">
+			<div class="relative flex w-54 items-center">
 				<button
 					data-tabs-trigger
-					class="z-50 h-8 top-0 left-0 w-53!"
+					class="top-0 left-0 z-50 h-8 w-53!"
 					onclick={() => (value = option.value)}>{option.label}</button
 				>
 				{#if option.value === value}

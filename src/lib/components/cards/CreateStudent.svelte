@@ -9,13 +9,13 @@
 </script>
 
 <div
-	class="w-150 p-5 h-70 bg-(--bg) rounded-xl border border-(--o) flex items-center justify-center"
+	class="flex h-70 w-150 items-center justify-center rounded-xl border border-(--o) bg-(--bg) p-5"
 >
 	{#if loading}
 		<Loader />
 	{:else}
 		<form
-			class="w-full h-full relative"
+			class="relative h-full w-full"
 			action="?/create"
 			method="POST"
 			use:enhance={() => {
@@ -27,12 +27,12 @@
 				};
 			}}
 		>
-			<h2 class="font-bold text-3xl text-center mt-5">Create Student</h2>
-			<div class="w-fit m-auto mt-3">
+			<h2 class="mt-5 text-center text-3xl font-bold">Create Student</h2>
+			<div class="m-auto mt-3 w-fit">
 				<Label.Root for="email">Email:</Label.Root><br />
 				<input id="email" name="email" type="email" />
 			</div>
-			<Button.Root type="submit" class="mt-3 block w-fit m-auto mb-10">Go</Button.Root>
+			<Button.Root type="submit" class="m-auto mt-3 mb-10 block w-fit">Go</Button.Root>
 			{#if form?.createError}
 				<p class="absolute bottom-0 text-(--red)">{form.message}</p>
 			{/if}
