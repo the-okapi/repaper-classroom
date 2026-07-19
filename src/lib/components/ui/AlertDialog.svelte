@@ -1,14 +1,12 @@
 <script lang="ts">
-	import { AlertDialog } from 'bits-ui';
+	import { fade, slide } from 'svelte/transition';
 
 	let { open = $bindable(), children } = $props();
 </script>
 
-<AlertDialog.Root bind:open>
-	<AlertDialog.Portal>
-		<AlertDialog.Overlay />
-		<AlertDialog.Content>
-			{@render children?.()}
-		</AlertDialog.Content>
-	</AlertDialog.Portal>
-</AlertDialog.Root>
+{#if open}
+	<div data-alert-dialog-overlay in:fade out:fade></div>
+	<div data-alert-dialog-content in:slide out:slide>
+		{@render children?.()}
+	</div>
+{/if}

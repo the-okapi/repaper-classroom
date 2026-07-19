@@ -148,7 +148,8 @@ input:disabled {
 	cursor: not-allowed;
 }
 
-[data-button-root]:disabled {
+[data-button-root]:disabled,
+[data-button-root][data-disabled] {
 	color: color-mix(in oklab, var(--fg) 50%, transparent);
 	background-color: color-mix(in oklab, var(--fg) 10%, transparent);
 	opacity: 1;
