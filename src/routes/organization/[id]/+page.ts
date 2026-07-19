@@ -4,7 +4,7 @@ import { redirect } from '@sveltejs/kit';
 export const load: PageLoad = async ({ parent, data }) => {
 	const parentData = await parent();
 	if (!parentData.claims) {
-		redirect(303, '/');
+		return redirect(303, '/');
 	}
 
 	return data;

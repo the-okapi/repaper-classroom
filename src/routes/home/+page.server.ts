@@ -7,7 +7,7 @@ export const load: PageServerLoad = async ({ locals }) => {
 	} = await locals.supabase.auth.getUser();
 
 	if (!user) {
-		redirect(303, '/');
+		return redirect(303, '/');
 	}
 
 	const { data: orgData, error: orgError } = await locals.supabase
@@ -18,7 +18,7 @@ export const load: PageServerLoad = async ({ locals }) => {
 
 	if (orgError) {
 		console.log(orgError, 'get org');
-		redirect(303, '/error');
+		return redirect(303, '/error');
 	}
 
 	if (orgData.length === 0) {
@@ -39,12 +39,12 @@ export const load: PageServerLoad = async ({ locals }) => {
 
 	if (error) {
 		console.log(error, 'select from class');
-		redirect(303, '/error');
+		return redirect(303, '/error');
 	}
 
 	const classes = data.map((c) => c.class);
 
-	return { classes, organization, title: 'Home' };
+	return { classes, organization };
 };
 
 export const actions = {

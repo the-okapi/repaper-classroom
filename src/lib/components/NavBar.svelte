@@ -53,7 +53,7 @@
 </AlertDialog>
 
 <button
-	class="z-50 backdrop-blur-xs fixed top-5 left-5 w-10 h-10 outline outline-(--o) font-[TimesNewRoman] font-black text-2xl rounded-lg cursor-pointer"
+	class="z-50! backdrop-blur-lg fixed top-5 left-5 w-10 h-10 outline outline-(--o) font-[TimesNewRoman] font-black text-2xl rounded-lg cursor-pointer"
 	onclick={show}
 >
 	R
@@ -62,7 +62,7 @@
 	<div
 		in:slide={{ axis: 'x' }}
 		out:slide={{ axis: 'x' }}
-		class="flex z-40 fixed h-10 top-5 left-17 py-1.5 px-3 outline outline-(--o) rounded-xl backdrop-blur-xs"
+		class="flex z-40! backdrop-blur-xs fixed h-10 top-5 left-17 py-1.5 px-3 outline outline-(--o) rounded-xl"
 	>
 		{#if loggedIn}
 			<a class="mx-2 h-fit m-auto hover:underline" href="/home" onclick={link}>Home</a>
@@ -77,7 +77,7 @@
 			<a class="mx-2 h-fit m-auto hover:underline whitespace-nowrap" href="/signup" onclick={link}
 				>Sign Up</a
 			>
-			<div class="cardButton h-fit m-auto {login ? 'z-50' : 'z-40'}">
+			<div class="cardButton h-fit m-auto {login ? 'z-50!' : 'z-40!'}">
 				<button class="mx-2 hover:underline cursor-pointer whitespace-nowrap" onclick={showLogin}
 					>Log In</button
 				>
@@ -86,7 +86,7 @@
 				{/if}
 			</div>
 		{/if}
-		<div class="cardButton h-fit m-auto {settings ? 'z-50' : 'z-40'}">
+		<div class="cardButton h-fit m-auto {settings ? 'z-50!' : 'z-40!'}">
 			<button class="mx-2 hover:underline cursor-pointer whitespace-nowrap" onclick={showSettings}
 				>Settings</button
 			>
@@ -97,7 +97,7 @@
 	</div>
 {/if}
 <h1
-	class="fixed py-5 top-0 text-4xl font-bold text-center w-screen bg-(--bg) border-b border-(--o)"
+	class="fixed py-5 top-0 text-4xl font-bold text-center w-screen backdrop-blur-xs border-b border-(--o)"
 >
 	{page.data.title}
 </h1>

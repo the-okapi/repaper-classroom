@@ -23,6 +23,6 @@ export const actions = {
 			return fail(400, { fail: true, message: signUpError.message, name, email });
 		}
 
-		redirect(303, '/home');
+		return redirect(303, '/home');
 	}
 } satisfies Actions;

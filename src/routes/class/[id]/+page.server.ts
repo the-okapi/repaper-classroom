@@ -7,7 +7,7 @@ export const load: PageServerLoad = async ({ locals, params }) => {
 	} = await locals.supabase.auth.getUser();
 
 	if (!user) {
-		redirect(303, '/');
+		return redirect(303, '/');
 	}
 
 	const { data, error } = await locals.supabase
@@ -18,11 +18,11 @@ export const load: PageServerLoad = async ({ locals, params }) => {
 		.eq('owner', true);
 
 	if (!data?.[0]) {
-		redirect(303, '/home');
+		return redirect(303, '/home');
 	}
 
 	if (error) {
-		redirect(303, '/error');
+		return redirect(303, '/error');
 	}
 
 	const { data: classData, error: classError } = await locals.supabase
@@ -32,7 +32,7 @@ export const load: PageServerLoad = async ({ locals, params }) => {
 		.neq('user', user.id);
 
 	if (classError) {
-		redirect(303, '/error');
+		return redirect(303, '/error');
 	}
 
 	return {

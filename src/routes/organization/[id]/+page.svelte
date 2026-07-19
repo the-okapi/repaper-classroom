@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type { PageProps } from "./$types";
 
-    let { data, form }: PageProps = $props();
+    let { data }: PageProps = $props();
 </script>
 
 <svelte:head>

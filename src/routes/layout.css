@@ -28,6 +28,10 @@
 	color: var(--fg);
 }
 
+.nav-bar * {
+	z-index: 20;
+}
+
 main * {
 	z-index: 10 !important;
 }
@@ -83,7 +87,6 @@ main * {
 :root {
 	font-family: var(--font);
 	vector-effect: non-scaling-stroke;
-	overscroll-behavior: none;
 }
 
 [data-select-trigger] {

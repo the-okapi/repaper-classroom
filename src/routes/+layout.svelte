@@ -25,7 +25,9 @@
 
 <ModeWatcher darkClassNames={['dark']} lightClassNames={['light']} />
 
-<NavBar {loggedIn} />
+<div class="nav-bar">
+	<NavBar {loggedIn} />
+</div>
 <main class="transition-colors bg-(--bg)">
 	{@render children()}
 </main>
