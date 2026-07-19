@@ -35,7 +35,7 @@
 
 <div class="pt-25 px-10 flex gap-4">
 	<div
-		class="w-full h-[80vh] bg-(--bg) border border-(--o) rounded-xl flex items-center justify-center p-5"
+		class="w-full overflow-scroll overscroll-none h-[80vh] bg-(--bg) border border-(--o) rounded-xl flex items-center justify-center p-5"
 	>
 		{#await data.members}
 			<Loader />
@@ -45,8 +45,13 @@
 					<h2 class="text-center font-bold text-3xl mb-5">List of Members</h2>
 					{#each members as member, i (i)}
 						<div class="px-5 py-3 flex">
-							<p class="text-xl m-auto">{member.user.name}</p>
-							<hr class="w-full m-auto border-(--o) mx-8" />
+							<p class="text-xl m-auto mr-4">{member.user.name}</p>
+							<div class="w-full flex items-center">
+								<p class="align-middle font-mono text-base bg-(--p)/20 py-1.5 px-3 rounded-lg">
+									{member.user.email}
+								</p>
+								
+							</div>
 							<Button.Root>Manage</Button.Root>
 							{#if members.length === 1}
 								<Button.Root

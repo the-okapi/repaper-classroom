@@ -99,7 +99,7 @@
 <h1
 	class="fixed py-5 top-0 text-4xl font-bold text-center w-screen backdrop-blur-xs border-b border-(--o)"
 >
-	{page.data.title}
+	{page.data.title ?? 'Repaper Classroom'}
 </h1>
 
 <style>

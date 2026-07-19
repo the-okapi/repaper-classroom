@@ -27,7 +27,7 @@ export const load: PageServerLoad = async ({ locals, params }) => {
 
 	const members = locals.supabase
 		.from('organization_memberships')
-		.select('user ( id, name ), owner')
+		.select('user ( id, name, email ), owner')
 		.eq('organization', params.id);
 
 	return {
