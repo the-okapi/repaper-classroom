@@ -39,6 +39,7 @@
 		"@supabase/ssr": "^0.12.3",
 		"@supabase/supabase-js": "^2.110.7",
 		"bits-ui": "^2.18.1",
-		"mode-watcher": "^1.1.0"
+		"mode-watcher": "^1.1.0",
+		"resend": "^6.17.2"
 	}
 }

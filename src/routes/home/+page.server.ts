@@ -64,6 +64,17 @@ export const actions = {
 			return fail(500, { createFailure: true, message: error.message });
 		}
 
+		const { data: check } = await locals.supabase
+			.from('organization_memberships')
+			.select('id')
+			.eq('organization', organization)
+			.eq('owner', true)
+			.eq('user', user.id);
+
+		if (!check?.[0]) {
+			return redirect(303, '/home');
+		}
+
 		const { error: insertError } = await locals.supabase.from('classes').insert({
 			name: className,
 			creator: user.id,

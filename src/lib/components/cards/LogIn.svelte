@@ -18,7 +18,7 @@
 		loading = true;
 		error = '';
 
-		const response = await fetch('/auth/login', {
+		const response = await fetch('/api/login', {
 			method: 'POST',
 			body: JSON.stringify({
 				email,

@@ -31,7 +31,7 @@
 	let logOutOpen = $state(false);
 
 	async function logOutAction() {
-		await fetch('/auth/signout', {
+		await fetch('/api/signout', {
 			method: 'POST'
 		});
 		window.location.reload();
