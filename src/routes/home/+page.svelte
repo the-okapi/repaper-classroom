@@ -14,7 +14,10 @@
 	{#if data.organization}
 		{#if data.organization.owner}
 			<div class="box">
-				<a class="box transition-colors cursor-pointer hover:bg-(--fg)/5! absolute" href="/organization/{data.organization.id}">
+				<a
+					class="box transition-colors cursor-pointer hover:bg-(--fg)/5! absolute"
+					href="/organization/{data.organization.id}"
+				>
 					<div>
 						<h2 class="font-bold text-4xl text-center">{data.organization.name}</h2>
 						<h3 class="text-center mt-3">Manage Organization</h3>
@@ -36,7 +39,10 @@
 		</div>
 		{#each data.classes as classData, i (i)}
 			<div class="box">
-				<a class="transition-colors box cursor-pointer hover:bg-(--fg)/5! absolute" href="/class/{classData.id}">
+				<a
+					class="transition-colors box cursor-pointer hover:bg-(--fg)/5! absolute"
+					href="/class/{classData.id}"
+				>
 					<div>
 						<h2 class="font-bold text-4xl text-center">{classData.name}</h2>
 						<h3 class="text-center mt-3">Manage Class</h3>

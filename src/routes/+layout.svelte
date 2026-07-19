@@ -23,7 +23,12 @@
 
 <Background class="fixed top-0 left-0 z-0" />
 
-<ModeWatcher darkClassNames={['dark']} lightClassNames={['light']} />
+<ModeWatcher
+	darkClassNames={['dark']}
+	lightClassNames={['light']}
+	defaultTheme="georgia"
+	defaultMode="light"
+/>
 
 <div class="nav-bar">
 	<NavBar {loggedIn} />
