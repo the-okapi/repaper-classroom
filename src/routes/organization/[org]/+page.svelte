@@ -2,6 +2,7 @@
 	import { Label, Button } from 'bits-ui';
 	import type { PageProps } from './$types';
 	import CreateMember from './CreateMember.svelte';
+	import OrganizationMembers from './OrganizationMembers.svelte';
 	import { AlertDialog } from '$lib/components';
 	import { enhance } from '$app/forms';
 
@@ -21,42 +22,7 @@
 </svelte:head>
 
 <div class="flex gap-4 px-10 pt-25">
-	<div
-		class="flex h-[80vh] w-full items-center justify-center overflow-scroll overscroll-none rounded-xl border border-(--o) bg-(--bg) p-5"
-	>
-		<div class="h-full w-full">
-			<h2 class="mb-5 text-center text-3xl font-bold">List of Members</h2>
-			{#each data.members as member, i (i)}
-				<div class="flex px-5 py-3">
-					<div class="flex w-fit items-center">
-						{#if member.owner}
-							<p
-								class="w-24 cursor-default rounded-full bg-violet-500 px-3 py-0.5 text-center text-base text-(--bg) select-none"
-							>
-								Admin
-							</p>
-						{:else}
-							<p
-								class="w-24 cursor-default rounded-full bg-(--p) px-3 py-0.5 text-center text-base text-(--bg) select-none"
-							>
-								Member
-							</p>
-						{/if}
-					</div>
-					<p class="m-auto mx-4 w-full overflow-x-scroll text-xl whitespace-nowrap">
-						{member.user.name}
-						{#if member.user.id === data.user}
-							<span class="text-base opacity-50">(You)</span>
-						{/if}
-					</p>
-					<Button.Root>Manage</Button.Root>
-				</div>
-				{#if i !== data.members.length - 1}
-					<hr class="m-auto w-[90%] border-(--o)" />
-				{/if}
-			{/each}
-		</div>
-	</div>
+	<OrganizationMembers {...data} />
 	<div class="flex h-[80vh] w-full gap-4">
 		<div
 			class="h-full w-full overflow-scroll overscroll-none rounded-xl border border-(--o) bg-(--bg) p-5"
