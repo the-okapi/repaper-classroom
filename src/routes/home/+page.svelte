@@ -29,7 +29,7 @@
 			<form method="POST" action="?/create">
 				<h2 class="mb-10 text-center text-3xl font-bold">Create a Class</h2>
 				<Label.Root for="class-name">Class Name:</Label.Root><br />
-				<input type="text" id="class-name" name="class-name" class="h-10" />
+				<input type="text" id="class-name" name="class-name" class="h-10" required />
 				<Button.Root type="submit">Go</Button.Root>
 				{#if form?.createFailure}
 					<p class="absolute text-(--red)">{form?.message}</p>
@@ -55,7 +55,7 @@
 			<form method="POST" action="?/organization">
 				<h2 class="mb-10 text-center text-2xl font-bold">Create an Organization</h2>
 				<Label.Root for="org-name">Organization Name:</Label.Root><br />
-				<input type="text" id="org-name" name="org-name" class="h-10" />
+				<input type="text" id="org-name" name="org-name" class="h-10" required />
 				<Button.Root type="submit">Go</Button.Root>
 				{#if form?.orgFailure}
 					<p class="absolute text-(--red)"></p>

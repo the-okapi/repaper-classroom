@@ -41,11 +41,11 @@
 		<h2 class="mt-5 text-center text-3xl font-bold whitespace-nowrap">Create Member</h2>
 		<div class="m-auto mt-3 w-fit">
 			<Label.Root for="name">Name:</Label.Root><br />
-			<input id="name" name="name" type="text" />
+			<input id="name" name="name" type="text" required />
 		</div>
 		<div class="m-auto mt-3 w-fit">
 			<Label.Root for="email">Email:</Label.Root><br />
-			<input id="email" name="email" type="email" />
+			<input id="email" name="email" type="email" required />
 		</div>
 		<Button.Root type="submit" class="m-auto mt-3 mb-10 block w-fit">Go</Button.Root>
 		{#if form?.createError}

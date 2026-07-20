@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { Label, Button } from 'bits-ui';
 	import type { PageProps } from './$types';
-	import { CreateMember } from '$lib/components';
+	import CreateMember from './CreateMember.svelte';
 
 	let { data, form }: PageProps = $props();
 </script>
@@ -33,6 +33,9 @@
 					</div>
 					<p class="m-auto mx-4 w-full overflow-x-scroll text-xl whitespace-nowrap">
 						{member.user.name}
+						{#if member.user.id === data.user}
+							<span class="text-base opacity-50">(You)</span>
+						{/if}
 					</p>
 					<Button.Root>Manage</Button.Root>
 				</div>
@@ -49,7 +52,7 @@
 					<h2 class="text-center text-2xl font-bold">Rename Organization</h2>
 					<div class="mx-auto my-5 w-fit">
 						<Label.Root for="name">Rename To:</Label.Root><br />
-						<input type="text" name="name" id="name" />
+						<input type="text" name="name" id="name" required />
 					</div>
 					<Button.Root type="submit" class="m-auto block">Go</Button.Root>
 					{#if form?.renameError}

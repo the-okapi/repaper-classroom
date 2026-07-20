@@ -37,7 +37,8 @@ export const load: PageServerLoad = async ({ locals, params }) => {
 
 	return {
 		title: data[0].organization.name,
-		members
+		members,
+		user: user.id
 	};
 };
 
@@ -116,11 +117,14 @@ export const actions = {
 			return redirect(303, '/home');
 		}
 
-		const { error } = await locals.supabase.from('invitations').insert({
-			name,
-			email,
-			organization: params.id
-		});
+		const { data: invitation, error } = await locals.supabase
+			.from('invitations')
+			.insert({
+				name,
+				email,
+				organization: params.id
+			})
+			.select('id');
 
 		if (error) {
 			return fail(500, { createError: true, message: error.message });
@@ -134,7 +138,11 @@ export const actions = {
 				variables: {
 					NAME: name,
 					ORGANIZATION: check[0].organization.name,
-					LINK: 'https://classroom.repaper.unlimitedstuffltd.com/invitation'
+					LINK:
+						'https://classroom.repaper.unlimitedstuffltd.com/invitation/' +
+						params.id +
+						'/' +
+						invitation[0].id
 				}
 			}
 		});
