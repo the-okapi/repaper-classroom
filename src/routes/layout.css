@@ -17,7 +17,7 @@
 .dark {
 	color-scheme: dark;
 	--bg: #222222;
-	--a: #252525;
+	--a: #272727;
 	--fg: #fafafa;
 	--p: #00dfdf;
 	--p-fg: #0a0a0a;
@@ -26,6 +26,10 @@
 	--c: #00dfdf;
 	background-color: var(--bg);
 	color: var(--fg);
+}
+
+input[type='email'] {
+	font-family: monospace;
 }
 
 .nav-bar * {

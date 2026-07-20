@@ -97,7 +97,7 @@
 	</div>
 {/if}
 <h1
-	class="fixed top-0 w-screen border-b border-(--o) py-5 text-center text-4xl font-bold backdrop-blur-xs"
+	class="fixed top-0 w-screen border-b border-(--o) py-5 text-center text-4xl font-bold backdrop-blur-md"
 >
 	{page.data.title ?? 'Repaper Classroom'}
 </h1>

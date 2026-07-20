@@ -199,3 +199,52 @@ export const renameMember = async ({ request, locals, params }: ActionData) => {
 
 	return { success: true };
 };
+
+export const deleteMember = async ({ request, params, locals }: ActionData) => {
+	const formData = await request.formData();
+	const userId = String(formData.get('user') ?? '');
+
+	const {
+		data: { user }
+	} = await locals.supabase.auth.getUser();
+
+	if (!user) {
+		return redirect(303, '/');
+	}
+
+	const { data: check } = await locals.supabase
+		.from('organization_memberships')
+		.select('id')
+		.eq('organization', params.org)
+		.eq('owner', true)
+		.eq('user', user.id);
+
+	if (!check?.[0]) {
+		return redirect(303, '/home');
+	}
+
+	const { error: deleteError } = await locals.supabase
+		.from('organization_memberships')
+		.delete()
+		.eq('organization', params.org)
+		.eq('user', userId);
+
+	if (deleteError) {
+		return redirect(303, '/error');
+	}
+
+	const date = new Date();
+
+	date.setDate(date.getDate() + 30);
+
+	const { error: updateError } = await locals.supabase
+		.from('users')
+		.update({ can_delete: date.toISOString() })
+		.eq('id', userId);
+
+	if (updateError) {
+		return redirect(303, '/error');
+	}
+
+	return { success: true };
+};
