@@ -8,6 +8,7 @@ export const load: PageServerLoad = async ({ locals, params }) => {
 	});
 
 	if (error) {
+		console.error(error, 'invitation/org/id page.server error');
 		return redirect(303, '/error');
 	}
 

@@ -17,6 +17,7 @@ export const load: PageServerLoad = async ({ locals }) => {
 		.limit(1);
 
 	if (orgError) {
+		console.error(orgError, 'home/page.server org');
 		return redirect(303, '/error');
 	}
 
@@ -37,6 +38,7 @@ export const load: PageServerLoad = async ({ locals }) => {
 		.eq('owner', true);
 
 	if (error) {
+		console.error(error, 'home/page.server error');
 		return redirect(303, '/error');
 	}
 

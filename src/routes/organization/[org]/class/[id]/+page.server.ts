@@ -22,6 +22,7 @@ export const load: PageServerLoad = async ({ locals, params }) => {
 	}
 
 	if (error) {
+		console.error(error, 'organization/org/class/id page.server error');
 		return redirect(303, '/error');
 	}
 
@@ -32,6 +33,7 @@ export const load: PageServerLoad = async ({ locals, params }) => {
 		.neq('user', user.id);
 
 	if (classError) {
+		console.error(classError, 'organization/org/class/id page.server class');
 		return redirect(303, '/error');
 	}
 

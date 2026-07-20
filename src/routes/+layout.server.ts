@@ -23,6 +23,7 @@ export const load: LayoutServerLoad = async ({ cookies, locals, route }) => {
 		.eq('id', user.id);
 
 	if (error) {
+		console.error(error, 'routes/layout error');
 		return redirect(303, '/error');
 	}
 
@@ -38,6 +39,7 @@ export const load: LayoutServerLoad = async ({ cookies, locals, route }) => {
 	const { error: signOutError } = await locals.supabase.auth.signOut();
 
 	if (signOutError) {
+		console.error(signOutError, 'routes/layout sign out');
 		return redirect(303, '/error');
 	}
 
