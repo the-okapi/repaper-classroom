@@ -36,9 +36,7 @@
 								Admin
 							</p>
 						{:else}
-							<p
-								class="w-24 rounded-full bg-cyan-600 px-3 py-0.5 text-center text-base text-(--bg)"
-							>
+							<p class="w-24 rounded-full bg-(--p) px-3 py-0.5 text-center text-base text-(--bg)">
 								Member
 							</p>
 						{/if}
