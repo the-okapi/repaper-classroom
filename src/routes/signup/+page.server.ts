@@ -19,7 +19,6 @@ export const actions = {
 		});
 
 		if (signUpError) {
-			console.log(JSON.stringify(signUpError));
 			return fail(400, { fail: true, message: signUpError.message, name, email });
 		}
 

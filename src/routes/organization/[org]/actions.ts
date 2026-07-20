@@ -243,7 +243,6 @@ export const deleteMember = async ({ request, params, locals }: ActionData) => {
 		.eq('id', userId);
 
 	if (updateError) {
-		console.log(updateError);
 		return redirect(303, '/error');
 	}
 

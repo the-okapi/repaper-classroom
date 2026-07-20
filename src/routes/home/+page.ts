@@ -3,7 +3,7 @@ import type { PageLoad } from './$types';
 
 export const load: PageLoad = async ({ parent, data }) => {
 	const parentData = await parent();
-	if (!parentData.claims) {
+	if (!parentData.loggedIn) {
 		return redirect(307, '/');
 	}
 

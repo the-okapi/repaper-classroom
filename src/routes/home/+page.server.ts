@@ -17,7 +17,6 @@ export const load: PageServerLoad = async ({ locals }) => {
 		.limit(1);
 
 	if (orgError) {
-		console.log(orgError, 'get org');
 		return redirect(303, '/error');
 	}
 
@@ -38,7 +37,6 @@ export const load: PageServerLoad = async ({ locals }) => {
 		.eq('owner', true);
 
 	if (error) {
-		console.log(error, 'select from class');
 		return redirect(303, '/error');
 	}
 
@@ -82,7 +80,6 @@ export const actions = {
 		});
 
 		if (insertError) {
-			console.log(insertError);
 			return fail(500, { createFailure: true, message: insertError.message });
 		}
 
@@ -136,7 +133,6 @@ export const actions = {
 		const { data, error } = await locals.supabase.rpc('check_email', { e, c });
 
 		if (error) {
-			console.log(error);
 			return fail(500, { addFailure: true, message: error.message });
 		}
 

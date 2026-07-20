@@ -11,7 +11,7 @@
 	let loggedIn = $state(false);
 
 	onMount(() => {
-		if (data.claims) {
+		if (data.loggedIn) {
 			loggedIn = true;
 		}
 	});
