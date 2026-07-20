@@ -31,12 +31,14 @@
 					<div class="flex w-fit items-center">
 						{#if member.owner}
 							<p
-								class="w-24 rounded-full bg-violet-500 px-3 py-0.5 text-center text-base text-(--bg)"
+								class="w-24 cursor-default rounded-full bg-violet-500 px-3 py-0.5 text-center text-base text-(--bg) select-none"
 							>
 								Admin
 							</p>
 						{:else}
-							<p class="w-24 rounded-full bg-(--p) px-3 py-0.5 text-center text-base text-(--bg)">
+							<p
+								class="w-24 cursor-default rounded-full bg-(--p) px-3 py-0.5 text-center text-base text-(--bg) select-none"
+							>
 								Member
 							</p>
 						{/if}
@@ -50,7 +52,7 @@
 					<Button.Root>Manage</Button.Root>
 				</div>
 				{#if i !== data.members.length - 1}
-					<hr class="m-auto w-[90%]" />
+					<hr class="m-auto w-[90%] border-(--o)" />
 				{/if}
 			{/each}
 		</div>

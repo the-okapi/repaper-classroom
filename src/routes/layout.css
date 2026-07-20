@@ -36,6 +36,11 @@ main * {
 	z-index: 10 !important;
 }
 
+:root::selection {
+	background-color: var(--p);
+	color: var(--p-fg);
+}
+
 [data-theme='georgia'] {
 	--font: 'Georgia';
 }
@@ -189,12 +194,12 @@ input:focus {
 	position: fixed;
 	top: 0;
 	left: 0;
-	z-index: 30;
+	z-index: 60;
 }
 
 [data-alert-dialog-content] {
 	background-color: var(--bg);
-	z-index: 50;
+	z-index: 70;
 	position: fixed;
 	top: 50%;
 	left: 50%;
