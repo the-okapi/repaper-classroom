@@ -24,19 +24,20 @@
 					</div>
 				</button>
 			</div>
+			<div class="box" in:fade>
+				<form method="POST" action="?/create">
+					<h2 class="mb-10 text-center text-3xl font-bold">Create a Class</h2>
+					<Label.Root for="class-name">Class Name:</Label.Root><br />
+					<input type="text" id="class-name" name="class-name" class="h-10" required />
+					<Button.Root type="submit">Go</Button.Root>
+					{#if form?.createFailure}
+						<p class="absolute text-(--red)">{form?.message}</p>
+					{/if}
+					<input type="hidden" name="organization" value={data.organization.id} />
+				</form>
+			</div>
 		{/if}
-		<div class="box" in:fade>
-			<form method="POST" action="?/create">
-				<h2 class="mb-10 text-center text-3xl font-bold">Create a Class</h2>
-				<Label.Root for="class-name">Class Name:</Label.Root><br />
-				<input type="text" id="class-name" name="class-name" class="h-10" required />
-				<Button.Root type="submit">Go</Button.Root>
-				{#if form?.createFailure}
-					<p class="absolute text-(--red)">{form?.message}</p>
-				{/if}
-				<input type="hidden" name="organization" value={data.organization.id} />
-			</form>
-		</div>
+
 		{#each data.classes as classData, i (i)}
 			<div class="box">
 				<button

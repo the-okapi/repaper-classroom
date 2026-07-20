@@ -2,8 +2,18 @@
 	import { Label, Button } from 'bits-ui';
 	import type { PageProps } from './$types';
 	import CreateMember from './CreateMember.svelte';
+	import { AlertDialog } from '$lib/components';
+	import { enhance } from '$app/forms';
 
 	let { data, form }: PageProps = $props();
+
+	let invitation = $state(0);
+	let confirmRevoke = $state(false);
+
+	function revokeInvitation(i: number) {
+		invitation = i;
+		confirmRevoke = true;
+	}
 </script>
 
 <svelte:head>
@@ -20,7 +30,9 @@
 				<div class="flex px-5 py-3">
 					<div class="flex w-fit items-center">
 						{#if member.owner}
-							<p class="w-24 rounded-full bg-(--red) px-3 py-0.5 text-center text-base text-(--bg)">
+							<p
+								class="w-24 rounded-full bg-violet-500 px-3 py-0.5 text-center text-base text-(--bg)"
+							>
 								Admin
 							</p>
 						{:else}
@@ -45,8 +57,25 @@
 			{/each}
 		</div>
 	</div>
-	<div class="flex h-[80vh] w-full flex-col gap-4">
-		<div class="flex h-full gap-4">
+	<div class="flex h-[80vh] w-full gap-4">
+		<div
+			class="h-full w-full overflow-scroll overscroll-none rounded-xl border border-(--o) bg-(--bg) p-5"
+		>
+			<h2 class="mb-5 text-center text-3xl font-bold">Invitations</h2>
+			{#if data.invitations.length === 0}
+				<p class="w-80">There are currently no invitations to this organization.</p>
+			{/if}
+			{#each data.invitations as invitation, i (i)}
+				<div class="mb-2.5 flex w-80">
+					<p class="my-auto w-70 overflow-hidden font-mono text-ellipsis">{invitation.email}</p>
+					<Button.Root
+						onclick={() => revokeInvitation(i)}
+						class="ml-1 rounded-lg! bg-(--red)! px-2! py-1!">Revoke</Button.Root
+					>
+				</div>
+			{/each}
+		</div>
+		<div class="flex h-full flex-col gap-4">
 			<div class="flex h-full w-full items-center rounded-xl border border-(--o) bg-(--bg) p-5">
 				<form action="?/rename" method="POST" class="m-auto">
 					<h2 class="text-center text-2xl font-bold">Rename Organization</h2>
@@ -62,6 +91,28 @@
 			</div>
 			<CreateMember {form} />
 		</div>
-		<div class="h-full w-full rounded-xl border border-(--o) bg-(--bg)"></div>
 	</div>
 </div>
+
+<AlertDialog bind:open={confirmRevoke}>
+	<p class="mb-8 text-center text-lg">
+		Are you sure you would like to revoke the invitation to <span class="font-bold"
+			>{data.invitations[0].name}</span
+		>
+		at
+		<span class="font-mono text-base">{data.invitations[0].email}?</span>
+	</p>
+	<div class="m-auto flex w-fit gap-4">
+		<Button.Root onclick={() => (confirmRevoke = false)}>Cancel</Button.Root>
+		<form
+			action="?/revoke"
+			method="POST"
+			use:enhance={() => {
+				confirmRevoke = false;
+			}}
+		>
+			<input type="hidden" value={data.invitations[invitation].id} name="invitation" />
+			<Button.Root type="submit" class="bg-(--red)!">Go</Button.Root>
+		</form>
+	</div>
+</AlertDialog>

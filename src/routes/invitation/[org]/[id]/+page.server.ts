@@ -1,7 +1,33 @@
 import type { Actions, PageServerLoad } from './$types';
 import { fail, redirect } from '@sveltejs/kit';
 
-export const load: PageServerLoad = () => {
+export const load: PageServerLoad = async ({ locals, params }) => {
+	const {
+		data: { user },
+		error: userData
+	} = await locals.supabase.auth.getUser();
+
+	if (userData) {
+		return redirect(303, '/error');
+	}
+
+	if (user) {
+		return redirect(303, '/home');
+	}
+
+	const { data, error } = await locals.supabase.rpc('check_invitation_exists', {
+		o: params.org,
+		i: params.id
+	});
+
+	if (error) {
+		return redirect(303, '/error');
+	}
+
+	if (data.length === 0) {
+		return redirect(303, '/');
+	}
+
 	return {
 		title: 'Create Account'
 	};

@@ -35,10 +35,20 @@ export const load: PageServerLoad = async ({ locals, params }) => {
 		return redirect(303, '/error');
 	}
 
+	const { data: invitations, error: invitationsError } = await locals.supabase
+		.from('invitations')
+		.select('id, name, email')
+		.eq('organization', params.id);
+
+	if (invitationsError) {
+		return redirect(303, '/error');
+	}
+
 	return {
 		title: data[0].organization.name,
 		members,
-		user: user.id
+		user: user.id,
+		invitations
 	};
 };
 
@@ -148,5 +158,40 @@ export const actions = {
 		});
 
 		return { createSuccess: true, success: true, email };
+	},
+	revoke: async ({ request, locals, params }) => {
+		const formData = await request.formData();
+		const invitation = String(formData.get('invitation') ?? '');
+
+		const {
+			data: { user }
+		} = await locals.supabase.auth.getUser();
+
+		if (!user) {
+			return redirect(303, '/');
+		}
+
+		const { data: check } = await locals.supabase
+			.from('organization_memberships')
+			.select('id')
+			.eq('organization', params.id)
+			.eq('user', user.id)
+			.eq('owner', true);
+
+		if (!check?.[0]) {
+			return redirect(303, '/home');
+		}
+
+		const { error } = await locals.supabase
+			.from('invitations')
+			.delete()
+			.eq('id', invitation)
+			.eq('organization', params.id);
+
+		if (error) {
+			return redirect(303, '/error');
+		}
+
+		return { success: true };
 	}
 } satisfies Actions;
