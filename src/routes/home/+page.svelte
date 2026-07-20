@@ -62,7 +62,7 @@
 				<input type="text" id="org-name" name="org-name" class="h-10" required />
 				<Button.Root type="submit">Go</Button.Root>
 				{#if form?.orgFailure}
-					<p class="absolute text-(--red)"></p>
+					<p class="absolute text-(--red)">{form.message}</p>
 				{/if}
 			</form>
 		</div>

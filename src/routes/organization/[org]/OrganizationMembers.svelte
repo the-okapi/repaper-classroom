@@ -16,6 +16,11 @@
 
 	let confirmText = $state('');
 	let confirmError = $state('');
+
+	function cancel() {
+		confirmDeleteOpen = false;
+		confirmPage = 0;
+	}
 </script>
 
 <div
@@ -83,7 +88,7 @@
 		{#if confirmPage === 0}
 			<p class="mb-8 text-center text-lg">
 				Are you sure you would like to delete <b>{m.user.name}</b> from this organization? All data
-				associated with {m.user.name} will be deleted. This action cannot be undone later.
+				associated with {m.user.name} will be deleted.
 			</p>
 		{:else if confirmPage === 1}
 			<p class="text-center">
@@ -91,20 +96,19 @@
 			</p>
 			<div class="m-auto mt-4 w-fit">
 				<Label.Root for="confirm">Email:</Label.Root><br />
-				<input type="text" id="confirm" class="w-80" bind:value={confirmText} />
+				<input type="text" id="confirm" class="w-80 font-mono" bind:value={confirmText} />
 			</div>
 		{:else}
 			<p class="mb-8 text-center text-lg">
-				This account will stay on our servers for a period of 30 days, during which you can still
-				recover the data. After 30 days if no recovery attemps have been made, the account will be
-				permanently deleted.
+				The account of {m.user.name} has been marked for deletion, and will be deleted in 30 days if no
+				attempt to recover the account has been made.
 			</p>
 		{/if}
 		<p class="absolute bottom-14 left-20 text-(--red)">{confirmError}</p>
 		<div class="absolute bottom-0 m-auto flex w-full items-center justify-center">
 			<div class="flex gap-4">
 				{#if confirmPage !== 2}
-					<Button.Root onclick={() => (confirmDeleteOpen = false)}>Cancel</Button.Root>
+					<Button.Root onclick={cancel}>Cancel</Button.Root>
 				{/if}
 				{#if confirmPage === 0}
 					<Button.Root class="bg-(--red)!" onclick={() => (confirmPage = 1)}>Next</Button.Root>

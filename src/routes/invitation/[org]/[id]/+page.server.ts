@@ -2,19 +2,6 @@ import type { Actions, PageServerLoad } from './$types';
 import { fail, redirect } from '@sveltejs/kit';
 
 export const load: PageServerLoad = async ({ locals, params }) => {
-	const {
-		data: { user },
-		error: userData
-	} = await locals.supabase.auth.getUser();
-
-	if (userData) {
-		return redirect(303, '/error');
-	}
-
-	if (user) {
-		return redirect(303, '/home');
-	}
-
 	const { data, error } = await locals.supabase.rpc('check_invitation_exists', {
 		o: params.org,
 		i: params.id
@@ -72,8 +59,6 @@ export const actions = {
 				}
 			}
 		});
-
-		console.log(error, 'e');
 
 		if (error) {
 			return fail(500, { fail: true, message: error.message, email });

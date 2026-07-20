@@ -103,13 +103,27 @@ export const actions = {
 			return fail(500, { orgFailure: true, message: error.message });
 		}
 
+		const id = crypto.randomUUID();
+
 		const { error: insertError } = await locals.supabase.from('organizations').insert({
+			id,
 			name: orgName,
 			creator: user.id
 		});
 
 		if (insertError) {
 			return fail(500, { orgFailure: true, message: insertError.message });
+		}
+
+		const { error: updateError } = await locals.supabase
+			.from('users')
+			.update({
+				organization: id
+			})
+			.eq('id', user.id);
+
+		if (updateError) {
+			return fail(500, { orgFailure: true, message: updateError.message });
 		}
 
 		return { success: true };
