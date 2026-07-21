@@ -3,10 +3,7 @@ import type { Actions } from './$types';
 
 export const actions = {
 	default: async ({ request, locals }) => {
-		const formData = await request.formData();
-		const name = String(formData.get('name') ?? '');
-		const email = String(formData.get('email') ?? '');
-		const password = String(formData.get('password') ?? '');
+		const { name, email, password } = Object.fromEntries(await request.formData());
 
 		const { error: signUpError } = await locals.supabase.auth.signUp({
 			email,

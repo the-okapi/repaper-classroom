@@ -10,48 +10,12 @@ export const load: PageServerLoad = async ({ locals }) => {
 		return redirect(303, '/');
 	}
 
-	const { data: orgData, error: orgError } = await locals.supabase
-		.from('organization_memberships')
-		.select('organization ( id, name ), owner')
-		.eq('user', user.id)
-		.limit(1);
-
-	if (orgError) {
-		console.error(orgError, 'home/page.server org');
-		return redirect(303, '/error');
-	}
-
-	if (orgData.length === 0) {
-		return { organization: null, classes: [] };
-	}
-
-	const organization = {
-		owner: orgData[0].owner,
-		id: orgData[0].organization.id,
-		name: orgData[0].organization.name
-	};
-
-	const { data, error } = await locals.supabase
-		.from('class_memberships')
-		.select('class ( id, name )')
-		.eq('user', user.id)
-		.eq('owner', true);
-
-	if (error) {
-		console.error(error, 'home/page.server error');
-		return redirect(303, '/error');
-	}
-
-	const classes = data.map((c) => c.class);
-
-	return { classes, organization };
+	return { user: user.id };
 };
 
 export const actions = {
 	create: async ({ request, locals }) => {
-		const formData = await request.formData();
-		const className = String(formData.get('class-name') ?? '');
-		const organization = String(formData.get('organization') ?? '');
+		const { className, organization } = Object.fromEntries(await request.formData());
 
 		const {
 			data: { user },
@@ -90,8 +54,7 @@ export const actions = {
 		return { success: true };
 	},
 	organization: async ({ request, locals }) => {
-		const formData = await request.formData();
-		const orgName = String(formData.get('org-name') ?? '');
+		const { orgName } = Object.fromEntries(await request.formData());
 
 		const {
 			data: { user },
@@ -133,9 +96,7 @@ export const actions = {
 		return { success: true };
 	},
 	add: async ({ request, locals }) => {
-		const formData = await request.formData();
-		const e = String(formData.get('email') ?? '');
-		const c = String(formData.get('class') ?? '');
+		const { email: e, class: c } = Object.fromEntries(await request.formData());
 
 		const { data, error } = await locals.supabase.rpc('check_email', { e, c });
 
@@ -165,10 +126,7 @@ export const actions = {
 		return { success: true };
 	},
 	student: async ({ request, locals }) => {
-		const formData = await request.formData();
-		const name = String(formData.get('name') ?? '');
-		const email = String(formData.get('email') ?? '');
-		const c = String(formData.get('class') ?? '');
+		const { name, email, class: c } = Object.fromEntries(await request.formData());
 
 		const { data: check, error: checkError } = await locals.supabase.rpc('check_email', {
 			e: email,

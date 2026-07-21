@@ -9,8 +9,7 @@ type ActionData = {
 };
 
 export const rename = async ({ request, params, locals }: ActionData) => {
-	const formData = await request.formData();
-	const name = String(formData.get('name') ?? '');
+	const { name } = Object.fromEntries(await request.formData());
 
 	const {
 		data: { user }
@@ -47,9 +46,7 @@ export const rename = async ({ request, params, locals }: ActionData) => {
 };
 
 export const create = async ({ locals, request, params }: ActionData) => {
-	const formData = await request.formData();
-	const name = String(formData.get('name') ?? '');
-	const email = String(formData.get('email') ?? '');
+	const { name, email } = Object.fromEntries(await request.formData());
 
 	const {
 		data: { user }
@@ -119,8 +116,7 @@ export const create = async ({ locals, request, params }: ActionData) => {
 };
 
 export const revoke = async ({ request, locals, params }: ActionData) => {
-	const formData = await request.formData();
-	const invitation = String(formData.get('invitation') ?? '');
+	const { invitation } = Object.fromEntries(await request.formData());
 
 	const {
 		data: { user }
@@ -156,9 +152,7 @@ export const revoke = async ({ request, locals, params }: ActionData) => {
 };
 
 export const renameMember = async ({ request, locals, params }: ActionData) => {
-	const formData = await request.formData();
-	const userId = String(formData.get('user') ?? '');
-	const name = String(formData.get('name') ?? '');
+	const { user: userId, name } = Object.fromEntries(await request.formData());
 
 	const {
 		data: { user }
@@ -205,8 +199,7 @@ export const renameMember = async ({ request, locals, params }: ActionData) => {
 };
 
 export const deleteMember = async ({ request, params, locals }: ActionData) => {
-	const formData = await request.formData();
-	const userId = String(formData.get('user') ?? '');
+	const { user: userId } = Object.fromEntries(await request.formData());
 
 	const {
 		data: { user }
@@ -256,8 +249,7 @@ export const deleteMember = async ({ request, params, locals }: ActionData) => {
 };
 
 export const restore = async ({ request, locals, params }: ActionData) => {
-	const formData = await request.formData();
-	const userId = String(formData.get('userId') ?? '');
+	const { userId } = Object.fromEntries(await request.formData());
 
 	const {
 		data: { user }
@@ -306,8 +298,7 @@ export const restore = async ({ request, locals, params }: ActionData) => {
 };
 
 export const promote = async ({ request, locals, params }: ActionData) => {
-	const formData = await request.formData();
-	const userId = String(formData.get('userId') ?? '');
+	const { userId } = Object.fromEntries(await request.formData());
 
 	const {
 		data: { user }
@@ -346,8 +337,7 @@ export const promote = async ({ request, locals, params }: ActionData) => {
 };
 
 export const demote = async ({ request, params, locals }: ActionData) => {
-	const formData = await request.formData();
-	const userId = String(formData.get('userId') ?? '');
+	const { userId } = Object.fromEntries(await request.formData());
 
 	const {
 		data: { user }

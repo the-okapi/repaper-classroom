@@ -23,10 +23,7 @@ export const load: PageServerLoad = async ({ locals, params }) => {
 
 export const actions = {
 	default: async ({ request, locals, params }) => {
-		const formData = await request.formData();
-		const email = String(formData.get('email') ?? '');
-		const password = String(formData.get('password') ?? '');
-		const confirmPassword = String(formData.get('confirmPassword') ?? '');
+		const { email, password, confirmPassword } = Object.fromEntries(await request.formData());
 
 		if (password !== confirmPassword) {
 			return fail(400, {
