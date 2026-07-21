@@ -39,7 +39,7 @@ export const actions = {
 			});
 		}
 
-		const { email, password, confirmPassword } = formData.data;
+		const { email, password, confirmPassword } = formData.output;
 
 		if (password !== confirmPassword) {
 			return fail(400, {

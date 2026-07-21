@@ -16,7 +16,7 @@ export const actions = {
 			return fail(400, { fail: true, message: 'Must be text, not file' });
 		}
 
-		const { email, password, name } = formData.data;
+		const { email, password, name } = formData.output;
 
 		const { error: signUpError } = await locals.supabase.auth.signUp({
 			email,
