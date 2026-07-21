@@ -1,5 +1,6 @@
 import { fail, redirect } from '@sveltejs/kit';
 import type { Actions, PageServerLoad } from './$types';
+import * as z from 'zod';
 
 export const load: PageServerLoad = async ({ locals }) => {
 	const {
@@ -12,6 +13,12 @@ export const load: PageServerLoad = async ({ locals }) => {
 
 	return { user: user.id };
 };
+
+const Student = z.object({
+	name: z.string(),
+	email: z.string(),
+	c: z.string()
+});
 
 export const actions = {
 	create: async ({ request, locals }) => {
@@ -126,7 +133,15 @@ export const actions = {
 		return { success: true };
 	},
 	student: async ({ request, locals }) => {
-		const { name, email, class: c } = Object.fromEntries(await request.formData());
+		//const { name, email, class: c } = Object.fromEntries(await request.formData());
+
+		const formData = Student.safeParse(Object.fromEntries(await request.formData()));
+
+		if (!formData.success) {
+			return fail(400, { studentFailure: true, message: 'Must be text, not file' });
+		}
+
+		const { name, email, c } = formData.data;
 
 		const { data: check, error: checkError } = await locals.supabase.rpc('check_email', {
 			e: email,

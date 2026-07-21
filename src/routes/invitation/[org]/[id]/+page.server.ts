@@ -1,5 +1,6 @@
 import type { Actions, PageServerLoad } from './$types';
 import { fail, redirect } from '@sveltejs/kit';
+import * as z from 'zod';
 
 export const load: PageServerLoad = async ({ locals, params }) => {
 	const { data, error } = await locals.supabase.rpc('check_invitation_exists', {
@@ -21,9 +22,24 @@ export const load: PageServerLoad = async ({ locals, params }) => {
 	};
 };
 
+const Invitation = z.object({
+	email: z.string(),
+	password: z.string(),
+	confirmPassword: z.string()
+});
+
 export const actions = {
 	default: async ({ request, locals, params }) => {
-		const { email, password, confirmPassword } = Object.fromEntries(await request.formData());
+		const formData = Invitation.safeParse(Object.fromEntries(await request.formData()));
+
+		if (!formData.success) {
+			return fail(400, {
+				fail: true,
+				message: 'Must be text, not file'
+			});
+		}
+
+		const { email, password, confirmPassword } = formData.data;
 
 		if (password !== confirmPassword) {
 			return fail(400, {
