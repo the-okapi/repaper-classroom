@@ -28,9 +28,8 @@ export const load: PageServerLoad = async ({ locals, params }) => {
 
 	const { data: classData, error: classError } = await locals.supabase
 		.from('class_memberships')
-		.select('user ( id, name ), owner')
-		.eq('class', params.id)
-		.neq('user', user.id);
+		.select('user ( id, name, email ), owner')
+		.eq('class', params.id);
 
 	if (classError) {
 		console.error(classError, 'organization/org/class/id page.server class');
@@ -38,8 +37,9 @@ export const load: PageServerLoad = async ({ locals, params }) => {
 	}
 
 	return {
-		students: classData,
+		members: classData,
 		title: data[0].class.name,
-		organization: data[0].class.organization
+		organization: data[0].class.organization,
+		user: user.id
 	};
 };

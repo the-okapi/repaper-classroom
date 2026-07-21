@@ -84,7 +84,7 @@
 				</div>
 				<input type="hidden" name="user" value={m.user.id} />
 			</form>
-			{#if !m.owner}
+			{#if !m.owner && m.user.id !== user}
 				<Button.Root class="m-auto mb-8 block" onclick={promote}>Promote to Admin</Button.Root>
 			{/if}
 			{#if members.filter((member: OrganizationMember) => member.owner).length > 1 && m.owner && m.user.id !== user}
@@ -188,17 +188,3 @@
 		</div>
 	</div>
 </AlertDialog>
-
-<style>
-	.badge {
-		width: 6rem;
-		cursor: default;
-		border-radius: calc(infinity * 1px);
-		padding-inline: 0.75rem;
-		padding-block: 0.125rem;
-		text-align: center;
-		font-size: 1rem;
-		color: var(--bg);
-		user-select: none;
-	}
-</style>

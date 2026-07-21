@@ -248,3 +248,15 @@ input:focus {
 	justify-content: center;
 	background-color: var(--bg);
 }
+
+.badge {
+	width: 6rem;
+	cursor: default;
+	border-radius: calc(infinity * 1px);
+	padding-inline: 0.75rem;
+	padding-block: 0.125rem;
+	text-align: center;
+	font-size: 1rem;
+	color: var(--bg);
+	user-select: none;
+}
