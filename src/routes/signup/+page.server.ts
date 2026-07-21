@@ -1,16 +1,16 @@
 import { fail, redirect } from '@sveltejs/kit';
 import type { Actions } from './$types';
-import * as z from 'zod';
+import * as v from 'valibot';
 
-const Signup = z.object({
-	name: z.string(),
-	email: z.string(),
-	password: z.string()
+const SignupSchema = v.object({
+	name: v.string(),
+	email: v.string(),
+	password: v.string()
 });
 
 export const actions = {
 	default: async ({ request, locals }) => {
-		const formData = Signup.safeParse(Object.fromEntries(await request.formData()));
+		const formData = v.safeParse(SignupSchema, Object.fromEntries(await request.formData()));
 
 		if (!formData.success) {
 			return fail(400, { fail: true, message: 'Must be text, not file' });
