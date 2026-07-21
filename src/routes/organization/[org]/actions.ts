@@ -65,6 +65,7 @@ export const create = async ({ locals, request, params }: ActionData) => {
 		.eq('email', email);
 
 	if (foundError) {
+		console.error(foundError, 'actions found');
 		return fail(500, { createError: true, message: foundError.message });
 	}
 
@@ -93,6 +94,7 @@ export const create = async ({ locals, request, params }: ActionData) => {
 		.select('id');
 
 	if (error) {
+		console.error('actions error2');
 		return fail(500, { createError: true, message: error.message });
 	}
 
@@ -195,6 +197,7 @@ export const renameMember = async ({ request, locals, params }: ActionData) => {
 		.eq('id', userId);
 
 	if (error) {
+		console.error(error, 'actions error3');
 		return fail(500, { renameMemberError: true, message: error.message });
 	}
 
@@ -296,6 +299,90 @@ export const restore = async ({ request, locals, params }: ActionData) => {
 
 	if (updateError) {
 		console.error(updateError, 'actions update');
+		return redirect(303, '/error');
+	}
+
+	return { success: true };
+};
+
+export const promote = async ({ request, locals, params }: ActionData) => {
+	const formData = await request.formData();
+	const userId = String(formData.get('userId') ?? '');
+
+	const {
+		data: { user }
+	} = await locals.supabase.auth.getUser();
+
+	if (!user) {
+		return redirect(303, '/');
+	}
+
+	const { data: check } = await locals.supabase
+		.from('organization_memberships')
+		.select('id')
+		.eq('organization', params.org)
+		.eq('owner', true)
+		.eq('user', user.id);
+
+	if (!check?.[0]) {
+		return redirect(303, '/home');
+	}
+
+	const { error } = await locals.supabase
+		.from('organization_memberships')
+		.update({
+			owner: true
+		})
+		.eq('user', userId)
+		.eq('organization', params.org)
+		.eq('owner', false);
+
+	if (error) {
+		console.log(error, 'actions promote');
+		return redirect(303, '/error');
+	}
+
+	return { success: true };
+};
+
+export const demote = async ({ request, params, locals }: ActionData) => {
+	const formData = await request.formData();
+	const userId = String(formData.get('userId') ?? '');
+
+	const {
+		data: { user }
+	} = await locals.supabase.auth.getUser();
+
+	if (!user) {
+		return redirect(303, '/');
+	}
+
+	if (userId === user.id) {
+		return fail(400, { demoteFailure: true, message: 'You cannot demote yourself.' });
+	}
+
+	const { data: check } = await locals.supabase
+		.from('organization_memberships')
+		.select('id')
+		.eq('organization', params.org)
+		.eq('owner', true)
+		.eq('user', user.id);
+
+	if (!check?.[0]) {
+		return redirect(303, '/home');
+	}
+
+	const { error } = await locals.supabase
+		.from('organization_memberships')
+		.update({
+			owner: false
+		})
+		.eq('user', userId)
+		.eq('organization', params.org)
+		.eq('owner', true);
+
+	if (error) {
+		console.error(error, 'actions error5');
 		return redirect(303, '/error');
 	}
 

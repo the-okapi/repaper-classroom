@@ -55,9 +55,7 @@
 			>
 				<h2 class="mb-5 text-center text-3xl font-bold">Deletions</h2>
 				{#if data.deletions.length === 0}
-					<p class="w-80">
-						There are currently no users scheduled for deletion in this organization.
-					</p>
+					<p class="w-80">There are currently no users marked for deletion in this organization.</p>
 				{/if}
 				{#each data.deletions as deletion, i (i)}
 					<div class="mb-2.5 flex w-80">
