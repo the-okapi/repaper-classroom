@@ -19,6 +19,7 @@ export const actions = {
 		});
 
 		if (signUpError) {
+			console.error(signUpError, 'signup/page.server signup');
 			return fail(400, { fail: true, message: signUpError.message, name, email });
 		}
 

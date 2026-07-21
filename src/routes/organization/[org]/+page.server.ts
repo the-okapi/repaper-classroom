@@ -1,6 +1,15 @@
 import { redirect } from '@sveltejs/kit';
 import type { Actions, PageServerLoad } from './$types';
-import { rename, create, revoke, renameMember, deleteMember, restore } from './actions';
+import {
+	rename,
+	create,
+	revoke,
+	renameMember,
+	deleteMember,
+	restore,
+	promote,
+	demote
+} from './actions';
 
 export const load: PageServerLoad = async ({ locals, params }) => {
 	const {
@@ -75,5 +84,7 @@ export const actions = {
 	revoke,
 	renameMember,
 	delete: deleteMember,
-	restore
+	restore,
+	promote,
+	demote
 } satisfies Actions;

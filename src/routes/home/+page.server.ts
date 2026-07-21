@@ -61,6 +61,7 @@ export const actions = {
 		if (!user) {
 			return redirect(303, '/');
 		} else if (error) {
+			console.error(error, 'home/page.server error2');
 			return fail(500, { createFailure: true, message: error.message });
 		}
 
@@ -82,6 +83,7 @@ export const actions = {
 		});
 
 		if (insertError) {
+			console.error(error, 'home/page.server insert');
 			return fail(500, { createFailure: true, message: insertError.message });
 		}
 
@@ -99,6 +101,7 @@ export const actions = {
 		if (!user) {
 			return redirect(303, '/');
 		} else if (error) {
+			console.error(error, 'home/page.server error3');
 			return fail(500, { orgFailure: true, message: error.message });
 		}
 
@@ -111,6 +114,7 @@ export const actions = {
 		});
 
 		if (insertError) {
+			console.error(error, 'home/page.server insert2');
 			return fail(500, { orgFailure: true, message: insertError.message });
 		}
 
@@ -122,6 +126,7 @@ export const actions = {
 			.eq('id', user.id);
 
 		if (updateError) {
+			console.error(error, 'home/page.server update');
 			return fail(500, { orgFailure: true, message: updateError.message });
 		}
 
@@ -135,6 +140,7 @@ export const actions = {
 		const { data, error } = await locals.supabase.rpc('check_email', { e, c });
 
 		if (error) {
+			console.error(error, 'home/page.server error4');
 			return fail(500, { addFailure: true, message: error.message });
 		}
 
@@ -152,6 +158,7 @@ export const actions = {
 		});
 
 		if (addError) {
+			console.error(addError, 'home/page.server add');
 			return fail(400, { addFailure: true, message: addError.message });
 		}
 

@@ -21,6 +21,18 @@
 		confirmDeleteOpen = false;
 		confirmPage = 0;
 	}
+
+	let promoteOpen = $state(false);
+
+	function promote() {
+		promoteOpen = true;
+	}
+
+	let demoteOpen = $state(false);
+
+	function demote() {
+		demoteOpen = true;
+	}
 </script>
 
 <div
@@ -59,7 +71,10 @@
 			{:else}
 				<p class="badge m-auto mb-1 bg-(--p)">Member</p>
 			{/if}
-			<h2 class="text-center text-3xl font-bold">{m.user.name}</h2>
+			<h2 class="text-center text-3xl font-bold">
+				{m.user.name}
+				{#if m.user.id === user}<span class="text-2xl font-normal opacity-50">(You)</span>{/if}
+			</h2>
 			<h3 class="text-center font-mono text-lg">{m.user.email}</h3>
 			<form action="?/renameMember" method="POST" class="m-auto my-8 w-fit">
 				<Label.Root for="name">Rename To:</Label.Root>
@@ -69,6 +84,12 @@
 				</div>
 				<input type="hidden" name="user" value={m.user.id} />
 			</form>
+			{#if !m.owner}
+				<Button.Root class="m-auto mb-8 block" onclick={promote}>Promote to Admin</Button.Root>
+			{/if}
+			{#if members.filter((member: OrganizationMember) => member.owner).length > 1 && m.owner && m.user.id !== user}
+				<Button.Root class="m-auto mb-8 block" onclick={demote}>Demote to Member</Button.Root>
+			{/if}
 			{#if members.length > 0 && m.user.id !== user}
 				{#if (m.owner && members.filter((member: OrganizationMember) => member.owner).length > 1) || !m.owner}
 					<Button.Root class="m-auto block bg-(--red)!" onclick={() => (confirmDeleteOpen = true)}
@@ -82,6 +103,32 @@
 		</div>
 	{/if}
 </div>
+
+<AlertDialog bind:open={promoteOpen}>
+	<p class="mb-8 text-center text-lg">
+		Are you sure you would like to promote {m.user.name} to admin?
+	</p>
+	<div class="m-auto flex w-fit gap-4">
+		<Button.Root onclick={() => (promoteOpen = false)}>Cancel</Button.Root>
+		<form action="?/promote" method="POST">
+			<input type="hidden" value={m.user.id} name="userId" />
+			<Button.Root type="submit">Go</Button.Root>
+		</form>
+	</div>
+</AlertDialog>
+
+<AlertDialog bind:open={demoteOpen}>
+	<p class="mb-8 text-center text-lg">
+		Are you sure you would like to demote {m.user.name} to member?
+	</p>
+	<div class="m-auto flex w-fit gap-4">
+		<Button.Root onclick={() => (demoteOpen = false)}>Cancel</Button.Root>
+		<form action="?/demote" method="POST">
+			<input type="hidden" value={m.user.id} name="userId" />
+			<Button.Root type="submit">Go</Button.Root>
+		</form>
+	</div>
+</AlertDialog>
 
 <AlertDialog bind:open={confirmDeleteOpen}>
 	<div class="relative h-46 w-120">

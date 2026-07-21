@@ -43,6 +43,7 @@ export const actions = {
 		});
 
 		if (checkError) {
+			console.error(checkError, 'invitation/org/id/page.server check');
 			return fail(500, { fail: true, message: checkError.message, email });
 		}
 
@@ -62,6 +63,7 @@ export const actions = {
 		});
 
 		if (error) {
+			console.error(error, 'invitation/org/id/page.server error2');
 			return fail(500, { fail: true, message: error.message, email });
 		}
 
@@ -71,6 +73,7 @@ export const actions = {
 			.eq('id', params.id);
 
 		if (deleteError) {
+			console.error(error, 'invitation/org/id/page.server delete');
 			return fail(500, { fail: true, message: deleteError.message, email });
 		}
 
