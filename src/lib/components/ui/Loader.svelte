@@ -2,4 +2,4 @@
 	import loader from '$lib/assets/icons/loader.svg';
 </script>
 
-<img src={loader} alt="Loading Circle" class="absolute m-auto h-11 animate-spin text-(--p)" />
+<img src={loader} alt="Loading Circle" class="absolute m-auto size-8 animate-spin" />
