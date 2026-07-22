@@ -21,8 +21,13 @@
 	}
 </script>
 
-<SelectC bind:value onValueChange={onC} trigger={selectedOptionLabel?.label} {...props}>
+<SelectC bind:value onValueChange={onC} trigger={selectedOptionLabel?.label} {...props} {styling}>
 	{#each options as option, i (i + option.value)}
-		<SelectItem value={option} {styling} c={itemClass} />
+		<SelectItem
+			value={option}
+			{styling}
+			class={itemClass}
+			rounded={i === 0 ? 't' : i === options.length - 1 ? 'b' : ''}
+		/>
 	{/each}
 </SelectC>

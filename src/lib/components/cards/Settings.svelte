@@ -37,10 +37,6 @@
 			value: 'arial'
 		},
 		{
-			label: 'Times New Roman',
-			value: 'times'
-		},
-		{
 			label: 'Trebuchet MS',
 			value: 'trebuchet'
 		},

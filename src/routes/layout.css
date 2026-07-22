@@ -45,52 +45,34 @@ main * {
 	color: var(--p-fg);
 }
 
-[data-theme='georgia'] {
+[data-theme='georgia'],
+.georgie {
 	--font: 'Georgia';
+	font-family: var(--font);
 }
 
-.georgia {
-	font-family: 'Georgia';
-}
-
-[data-theme='arial'] {
-	--font: 'Arial';
-}
-
+[data-theme='arial'],
 .arial {
-	font-family: 'Arial';
+	--font: 'Arial';
+	font-family: var(--font);
 }
 
-[data-theme='tahoma'] {
-	--font: 'Tahoma';
-}
-
+[data-theme='tahoma'],
 .tahoma {
-	font-family: 'Tahoma';
+	--font: 'Tahoma';
+	font-family: var(--font);
 }
 
-[data-theme='times'] {
-	--font: 'Times New Roman';
-}
-
-.times {
-	font-family: 'Times New Roman';
-}
-
-[data-theme='trebuchet'] {
-	--font: 'Trebuchet MS';
-}
-
+[data-theme='trebuchet'],
 .trebuchet {
-	font-family: 'Trebuchet MS';
+	--font: 'Trebuchet MS';
+	font-family: var(--font);
 }
 
-[data-theme='system'] {
-	--font: system-ui;
-}
-
+[data-theme='system'],
 .system {
-	font-family: system-ui;
+	--font: system-ui;
+	font-family: var(--font);
 }
 
 :root {
@@ -102,7 +84,7 @@ main * {
 	border: 1px var(--o) solid;
 	color: var(--fg);
 	border-radius: 0.75rem;
-	padding: 0.5rem;
+	padding: 0.35rem 0.5rem;
 	outline-color: var(--fg);
 	display: grid;
 	grid-template-columns: 3fr 1fr;
