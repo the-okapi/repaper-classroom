@@ -1,7 +1,5 @@
 <script lang="ts">
-	import Loader from '@lucide/svelte/icons/loader-circle';
-
-	let { size = 40 } = $props();
+	import loader from '$lib/assets/icons/loader.svg';
 </script>
 
-<Loader class="absolute m-auto animate-spin text-(--p)" {size} />
+<img src={loader} alt="Loading Circle" class="absolute m-auto h-11 animate-spin text-(--p)" />

@@ -11,7 +11,7 @@
 
 	let error = $state('');
 
-	let loading = $state(false);
+	let loading = $state(true);
 </script>
 
 <div
@@ -21,7 +21,7 @@
 	{...props}
 >
 	{#if loading}
-		<Loader size={30} />
+		<Loader />
 	{/if}
 	<form
 		{...logIn.enhance(async (form) => {
