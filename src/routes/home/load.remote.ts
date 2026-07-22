@@ -1,8 +1,8 @@
 import { getRequestEvent, query } from '$app/server';
 import { redirect } from '@sveltejs/kit';
-import * as v from 'valibot';
+import { string } from 'valibot';
 
-export const load = query(v.string(), async (userId) => {
+export const load = query(string(), async (userId) => {
 	const { locals } = getRequestEvent();
 
 	const { data: orgData, error: orgError } = await locals.supabase

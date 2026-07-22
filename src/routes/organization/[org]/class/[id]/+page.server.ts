@@ -1,5 +1,6 @@
-import type { PageServerLoad } from './$types';
+import type { Actions, PageServerLoad } from './$types';
 import { redirect } from '@sveltejs/kit';
+import { add } from './actions';
 
 export const load: PageServerLoad = async ({ locals, params }) => {
 	const {
@@ -43,3 +44,7 @@ export const load: PageServerLoad = async ({ locals, params }) => {
 		user: user.id
 	};
 };
+
+export const actions = {
+	add
+} satisfies Actions;

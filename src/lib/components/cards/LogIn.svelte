@@ -11,7 +11,7 @@
 
 	let error = $state('');
 
-	let loading = $state(true);
+	let loading = $state(false);
 </script>
 
 <div

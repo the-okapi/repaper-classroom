@@ -1,6 +1,6 @@
 import type { Actions, PageServerLoad } from './$types';
 import { fail, redirect } from '@sveltejs/kit';
-import * as v from 'valibot';
+import { object, string, safeParse } from 'valibot';
 
 export const load: PageServerLoad = async ({ locals, params }) => {
 	const { data, error } = await locals.supabase.rpc('check_invitation_exists', {
@@ -22,15 +22,15 @@ export const load: PageServerLoad = async ({ locals, params }) => {
 	};
 };
 
-const InvitationSchema = v.object({
-	email: v.string(),
-	password: v.string(),
-	confirmPassword: v.string()
+const InvitationSchema = object({
+	email: string(),
+	password: string(),
+	confirmPassword: string()
 });
 
 export const actions = {
 	default: async ({ request, locals, params }) => {
-		const formData = v.safeParse(InvitationSchema, Object.fromEntries(await request.formData()));
+		const formData = safeParse(InvitationSchema, Object.fromEntries(await request.formData()));
 
 		if (!formData.success) {
 			return fail(400, {

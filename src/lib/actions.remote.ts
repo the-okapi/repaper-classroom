@@ -1,5 +1,5 @@
 import { form, getRequestEvent } from '$app/server';
-import * as v from 'valibot';
+import { object, string } from 'valibot';
 import { redirect } from '@sveltejs/kit';
 
 export const signOut = form(async () => {
@@ -14,9 +14,9 @@ export const signOut = form(async () => {
 	return redirect(303, '/');
 });
 
-const LogInSchema = v.object({
-	email: v.string(),
-	password: v.string()
+const LogInSchema = object({
+	email: string(),
+	password: string()
 });
 
 export const logIn = form(LogInSchema, async ({ email, password }) => {

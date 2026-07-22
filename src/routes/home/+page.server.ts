@@ -1,6 +1,6 @@
 import { fail, redirect } from '@sveltejs/kit';
 import type { Actions, PageServerLoad } from './$types';
-import * as v from 'valibot';
+import { object, string, safeParse } from 'valibot';
 
 export const load: PageServerLoad = async ({ locals }) => {
 	const {
@@ -14,10 +14,10 @@ export const load: PageServerLoad = async ({ locals }) => {
 	return { user: user.id };
 };
 
-const StudentSchema = v.object({
-	name: v.string(),
-	email: v.string(),
-	c: v.string()
+const StudentSchema = object({
+	name: string(),
+	email: string(),
+	c: string()
 });
 
 export const actions = {
@@ -135,7 +135,7 @@ export const actions = {
 	student: async ({ request, locals }) => {
 		//const { name, email, class: c } = Object.fromEntries(await request.formData());
 
-		const formData = v.safeParse(StudentSchema, Object.fromEntries(await request.formData()));
+		const formData = safeParse(StudentSchema, Object.fromEntries(await request.formData()));
 
 		if (!formData.success) {
 			return fail(400, { studentFailure: true, message: 'Must be text, not file' });

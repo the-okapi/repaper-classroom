@@ -1,7 +1,7 @@
 import { redirect, fail } from '@sveltejs/kit';
-import type { RouteParams } from './$types';
 import resend from '$lib/resend';
-import * as v from 'valibot';
+import { object, string, safeParse } from 'valibot';
+import type { RouteParams } from './$types';
 
 type ActionData = {
 	request: Request;
@@ -9,8 +9,18 @@ type ActionData = {
 	locals: App.Locals;
 };
 
+const RenameSchema = object({
+	name: string()
+});
+
 export const rename = async ({ request, params, locals }: ActionData) => {
-	const { name } = Object.fromEntries(await request.formData());
+	const formData = safeParse(RenameSchema, Object.fromEntries(await request.formData()));
+
+	if (!formData.success) {
+		return redirect(303, '/error');
+	}
+
+	const { name } = formData.output;
 
 	const {
 		data: { user }
@@ -46,13 +56,13 @@ export const rename = async ({ request, params, locals }: ActionData) => {
 	return { success: true };
 };
 
-const CreateSchema = v.object({
-	name: v.string(),
-	email: v.string()
+const CreateSchema = object({
+	name: string(),
+	email: string()
 });
 
 export const create = async ({ locals, request, params }: ActionData) => {
-	const formData = v.safeParse(CreateSchema, Object.fromEntries(await request.formData()));
+	const formData = safeParse(CreateSchema, Object.fromEntries(await request.formData()));
 
 	if (!formData.success) {
 		return fail(400, { createError: true, message: 'Must be text, not file' });
@@ -127,8 +137,18 @@ export const create = async ({ locals, request, params }: ActionData) => {
 	return { createSuccess: true, success: true, email };
 };
 
+const RevokeSchema = object({
+	invitation: string()
+});
+
 export const revoke = async ({ request, locals, params }: ActionData) => {
-	const { invitation } = Object.fromEntries(await request.formData());
+	const formData = safeParse(RevokeSchema, Object.fromEntries(await request.formData()));
+
+	if (!formData.success) {
+		return redirect(303, '/error');
+	}
+
+	const { invitation } = formData.output;
 
 	const {
 		data: { user }
@@ -163,8 +183,19 @@ export const revoke = async ({ request, locals, params }: ActionData) => {
 	return { success: true };
 };
 
+const RenameMemberSchema = object({
+	user: string(),
+	name: string()
+});
+
 export const renameMember = async ({ request, locals, params }: ActionData) => {
-	const { user: userId, name } = Object.fromEntries(await request.formData());
+	const formData = safeParse(RenameMemberSchema, Object.fromEntries(await request.formData()));
+
+	if (!formData.success) {
+		return fail(400, { renameMemberError: true, message: 'Must be text, not files' });
+	}
+
+	const { user: userId, name } = formData.output;
 
 	const {
 		data: { user }
@@ -210,8 +241,18 @@ export const renameMember = async ({ request, locals, params }: ActionData) => {
 	return { success: true };
 };
 
+const DeleteMemberSchema = object({
+	user: string()
+});
+
 export const deleteMember = async ({ request, params, locals }: ActionData) => {
-	const { user: userId } = Object.fromEntries(await request.formData());
+	const formData = safeParse(DeleteMemberSchema, Object.fromEntries(await request.formData()));
+
+	if (!formData.success) {
+		return redirect(303, '/error');
+	}
+
+	const { user: userId } = formData.output;
 
 	const {
 		data: { user }
@@ -260,8 +301,18 @@ export const deleteMember = async ({ request, params, locals }: ActionData) => {
 	return { success: true };
 };
 
+const RestoreSchema = object({
+	userId: string()
+});
+
 export const restore = async ({ request, locals, params }: ActionData) => {
-	const { userId } = Object.fromEntries(await request.formData());
+	const formData = safeParse(RestoreSchema, Object.fromEntries(await request.formData()));
+
+	if (!formData.success) {
+		return redirect(303, '/error');
+	}
+
+	const { userId } = formData.output;
 
 	const {
 		data: { user }
@@ -309,8 +360,18 @@ export const restore = async ({ request, locals, params }: ActionData) => {
 	return { success: true };
 };
 
+const PromoteSchema = object({
+	userId: string()
+});
+
 export const promote = async ({ request, locals, params }: ActionData) => {
-	const { userId } = Object.fromEntries(await request.formData());
+	const formData = safeParse(PromoteSchema, Object.fromEntries(await request.formData()));
+
+	if (!formData.success) {
+		return redirect(303, '/error');
+	}
+
+	const { userId } = formData.output;
 
 	const {
 		data: { user }
@@ -348,8 +409,18 @@ export const promote = async ({ request, locals, params }: ActionData) => {
 	return { success: true };
 };
 
+const DemoteSchema = object({
+	userId: string()
+});
+
 export const demote = async ({ request, params, locals }: ActionData) => {
-	const { userId } = Object.fromEntries(await request.formData());
+	const formData = safeParse(DemoteSchema, Object.fromEntries(await request.formData()));
+
+	if (!formData.success) {
+		return redirect(303, '/error');
+	}
+
+	const { userId } = formData.output;
 
 	const {
 		data: { user }

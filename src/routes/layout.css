@@ -113,6 +113,15 @@ main * {
 	padding: 0.35rem 0.5rem;
 }
 
+[data-combobox-input] {
+	padding: 0.35rem 0.5rem;
+	width: 12rem;
+}
+
+[data-combobox-portal] * {
+	z-index: 60 !important;
+}
+
 [data-button-root]:focus {
 	outline: none!;
 }
