@@ -1,6 +1,7 @@
 import { redirect, fail } from '@sveltejs/kit';
 import type { RouteParams } from './$types';
 import resend from '$lib/resend';
+import * as v from 'valibot';
 
 type ActionData = {
 	request: Request;
@@ -45,8 +46,19 @@ export const rename = async ({ request, params, locals }: ActionData) => {
 	return { success: true };
 };
 
+const CreateSchema = v.object({
+	name: v.string(),
+	email: v.string()
+});
+
 export const create = async ({ locals, request, params }: ActionData) => {
-	const { name, email } = Object.fromEntries(await request.formData());
+	const formData = v.safeParse(CreateSchema, Object.fromEntries(await request.formData()));
+
+	if (!formData.success) {
+		return fail(400, { createError: true, message: 'Must be text, not file' });
+	}
+
+	const { name, email } = formData.output;
 
 	const {
 		data: { user }

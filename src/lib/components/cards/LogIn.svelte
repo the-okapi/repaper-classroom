@@ -2,6 +2,7 @@
 	import { Button, Label } from 'bits-ui';
 	import { slide } from 'svelte/transition';
 	import { Loader } from '$lib/components';
+	import { logIn } from '$lib/actions.remote';
 
 	let { class: c, ...props } = $props();
 
@@ -11,29 +12,6 @@
 	let error = $state('');
 
 	let loading = $state(false);
-
-	async function onsubmit(event: Event) {
-		event.preventDefault();
-
-		loading = true;
-		error = '';
-
-		const response = await fetch('/api/login', {
-			method: 'POST',
-			body: JSON.stringify({
-				email,
-				password
-			})
-		});
-
-		if (response.status === 400) {
-			error = 'Invalid Email or Password';
-			loading = false;
-		} else {
-			loading = false;
-			window.location.reload();
-		}
-	}
 </script>
 
 <div
@@ -45,14 +23,32 @@
 	{#if loading}
 		<Loader size={30} />
 	{/if}
-	<form {onsubmit} class={loading ? 'invisible' : 'visible'}>
+	<form
+		{...logIn.enhance(async (form) => {
+			loading = true;
+			await form.submit();
+
+			if (form.result?.status !== 200) {
+				error = form.result?.message ?? '';
+				loading = false;
+			}
+		})}
+		class={loading ? 'invisible' : 'visible'}
+	>
 		<div class="mb-5 w-50">
 			<Label.Root for="email" class={loading ? 'opacity-50' : ''}>Email:</Label.Root>
-			<input type="email" id="email" class="w-50" bind:value={email} required />
+			<input type="email" id="email" name="email" class="w-50" bind:value={email} required />
 		</div>
 		<div class="mb-0.5 w-50">
 			<Label.Root for="password" class={loading ? 'opacity-50' : ''}>Password:</Label.Root>
-			<input type="password" id="password" class="w-50" bind:value={password} required />
+			<input
+				type="password"
+				id="password"
+				name="password"
+				class="w-50"
+				bind:value={password}
+				required
+			/>
 		</div>
 		<div class="absolute w-50 text-center">
 			<p class="text-xs text-(--red)">{error}</p>

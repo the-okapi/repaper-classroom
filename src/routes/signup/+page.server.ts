@@ -13,7 +13,7 @@ export const actions = {
 		const formData = v.safeParse(SignupSchema, Object.fromEntries(await request.formData()));
 
 		if (!formData.success) {
-			return fail(400, { fail: true, message: 'Must be text, not file' });
+			return fail(400, { fail: true, message: 'Must be text, not file', name: '', email: '' });
 		}
 
 		const { email, password, name } = formData.output;

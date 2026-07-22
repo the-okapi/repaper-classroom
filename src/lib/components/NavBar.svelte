@@ -3,10 +3,11 @@
 	import { Settings, Login, AlertDialog } from '$lib/components';
 	import { slide } from 'svelte/transition';
 	import { Button } from 'bits-ui';
+	import { signOut } from '$lib/actions.remote';
 
 	let { loggedIn } = $props();
 
-	let shown = $state(false);
+	let shown = $state(true);
 	let settings = $state(false);
 	let login = $state(false);
 
@@ -30,13 +31,6 @@
 
 	let logOutOpen = $state(false);
 
-	async function logOutAction() {
-		await fetch('/api/signout', {
-			method: 'POST'
-		});
-		window.location.reload();
-	}
-
 	function link() {
 		shown = false;
 	}
@@ -48,7 +42,15 @@
 		<Button.Root class="px-5! py-2.5! text-lg" onclick={() => (logOutOpen = false)}
 			>Cancel</Button.Root
 		>
-		<Button.Root class="px-5! py-2.5! text-lg" onclick={logOutAction}>Go</Button.Root>
+		<form
+			{...signOut.enhance(async (form) => {
+				logOutOpen = false;
+				login = false;
+				await form.submit();
+			})}
+		>
+			<Button.Root class="px-5! py-2.5! text-lg" type="submit">Go</Button.Root>
+		</form>
 	</div>
 </AlertDialog>
 

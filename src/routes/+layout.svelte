@@ -3,18 +3,9 @@
 	import { ModeWatcher } from 'mode-watcher';
 	import favicon from '$lib/assets/favicon.png';
 	import { NavBar, Background } from '$lib/components';
-	import { onMount } from 'svelte';
 	import type { LayoutProps } from './$types';
 
 	let { data, children }: LayoutProps = $props();
-
-	let loggedIn = $state(false);
-
-	onMount(() => {
-		if (data.loggedIn) {
-			loggedIn = true;
-		}
-	});
 </script>
 
 <svelte:head>
@@ -31,7 +22,7 @@
 />
 
 <div class="nav-bar">
-	<NavBar {loggedIn} />
+	<NavBar loggedIn={data.loggedIn} />
 </div>
 <main class="bg-(--bg) transition-colors">
 	{@render children()}

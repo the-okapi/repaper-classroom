@@ -35,7 +35,8 @@ export const actions = {
 		if (!formData.success) {
 			return fail(400, {
 				fail: true,
-				message: 'Must be text, not file'
+				message: 'Must be text, not file',
+				email: ''
 			});
 		}
 

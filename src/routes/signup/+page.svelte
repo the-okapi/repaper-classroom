@@ -22,7 +22,7 @@
 	{#if loading}
 		<Loader />
 	{:else}
-		<div class="m-auto">
+		<div class="m-auto rounded-xl border border-(--o) bg-(--bg) px-20 py-15">
 			<form
 				method="POST"
 				class="flex w-fit flex-col items-center"
