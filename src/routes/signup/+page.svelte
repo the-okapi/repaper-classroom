@@ -45,11 +45,25 @@
 			>
 				<div class="mb-5 text-left">
 					<Label.Root for="name">Your Name:</Label.Root><br />
-					<input id="name" type="text" value={form?.name} name="name" class="w-50" required />
+					<input
+						id="name"
+						type="text"
+						value={form?.name}
+						name="name"
+						class="w-50"
+						required
+					/>
 				</div>
 				<div class="mb-5 text-left">
 					<Label.Root for="email">Your Email:</Label.Root><br />
-					<input id="email" type="email" value={form?.email} name="email" class="w-50" required />
+					<input
+						id="email"
+						type="email"
+						value={form?.email}
+						name="email"
+						class="w-50"
+						required
+					/>
 				</div>
 				<div class="mb-5 text-left">
 					<Label.Root for="password">Password:</Label.Root><br />

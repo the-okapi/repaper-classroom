@@ -51,7 +51,7 @@ export const add = async ({ request, locals, params }: ActionData) => {
 				.select('organization')
 				.eq('id', params.id)
 				.eq('organization', params.org),
-			10
+			9
 		);
 
 		if (!check2 || check2[0].organization !== params.org) {

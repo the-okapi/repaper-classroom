@@ -42,10 +42,13 @@
 				{/if}
 				{#each data.invitations as invitation, i (i)}
 					<div class="mb-2.5 flex w-80">
-						<p class="my-auto w-70 overflow-hidden font-mono text-ellipsis">{invitation.email}</p>
+						<p class="my-auto w-70 overflow-hidden font-mono text-ellipsis">
+							{invitation.email}
+						</p>
 						<Button.Root
 							onclick={() => revokeInvitation(i)}
-							class="ml-1 rounded-[0.625rem]! bg-(--red)! px-3! py-1.5!">Revoke</Button.Root
+							class="ml-1 rounded-[0.625rem]! bg-(--red)! px-3! py-1.5!"
+							>Revoke</Button.Root
 						>
 					</div>
 				{/each}
@@ -55,7 +58,9 @@
 			>
 				<h2 class="mb-5 text-center text-3xl font-bold">Deletions</h2>
 				{#if data.deletions.length === 0}
-					<p class="w-80">There are currently no users marked for deletion in this organization.</p>
+					<p class="w-80">
+						There are currently no users marked for deletion in this organization.
+					</p>
 				{/if}
 				{#each data.deletions as deletion, i (i)}
 					<div class="mb-2.5 flex w-80">
@@ -67,14 +72,17 @@
 						</p>
 						<Button.Root
 							onclick={() => restoreMember(i)}
-							class="ml-1 rounded-[0.625rem]! px-3! py-1.5! text-sm">Restore</Button.Root
+							class="ml-1 rounded-[0.625rem]! px-3! py-1.5! text-sm"
+							>Restore</Button.Root
 						>
 					</div>
 				{/each}
 			</div>
 		</div>
 		<div class="flex h-full flex-col gap-4">
-			<div class="flex h-full w-full items-center rounded-xl border border-(--o) bg-(--bg) p-5">
+			<div
+				class="flex h-full w-full items-center rounded-xl border border-(--o) bg-(--bg) p-5"
+			>
 				<form action="?/rename" method="POST" class="m-auto">
 					<h2 class="text-center text-2xl font-bold">Rename Organization</h2>
 					<div class="mx-auto my-5 w-fit">

@@ -12,7 +12,11 @@
 >
 	{#snippet children({ selected })}
 		<div class="flex">
-			{#if selected}<img src={check} class="my-auto mr-2 size-5" alt="A checkmark" />{:else}<img
+			{#if selected}<img
+					src={check}
+					class="my-auto mr-2 size-5"
+					alt="A checkmark"
+				/>{:else}<img
 					src={check}
 					class="my-auto mr-2 size-5 opacity-0"
 					alt="Nothing"

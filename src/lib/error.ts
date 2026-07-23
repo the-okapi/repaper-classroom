@@ -18,3 +18,10 @@ export function unwrap(response: { data: any; error: any }, code: number) {
 		return response.data;
 	}
 }
+
+export function unwrapNoData(response: { error: any }, code: number) {
+	if (response.error) {
+		console.error(response.error, 'Error Code ' + code);
+		throw new HttpError(response.error.message, 500);
+	}
+}

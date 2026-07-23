@@ -76,12 +76,15 @@
 			</button>
 		{:else}
 			<a class="m-auto mx-2 h-fit hover:underline" href="/" onclick={link}>Home</a>
-			<a class="m-auto mx-2 h-fit whitespace-nowrap hover:underline" href="/signup" onclick={link}
-				>Sign Up</a
+			<a
+				class="m-auto mx-2 h-fit whitespace-nowrap hover:underline"
+				href="/signup"
+				onclick={link}>Sign Up</a
 			>
 			<div class="cardButton m-auto h-fit {login ? 'z-50!' : 'z-40!'}">
-				<button class="mx-2 cursor-pointer whitespace-nowrap hover:underline" onclick={showLogin}
-					>Log In</button
+				<button
+					class="mx-2 cursor-pointer whitespace-nowrap hover:underline"
+					onclick={showLogin}>Log In</button
 				>
 				{#if login}
 					<Login class="card" />
@@ -89,8 +92,9 @@
 			</div>
 		{/if}
 		<div class="cardButton m-auto h-fit {settings ? 'z-50!' : 'z-40!'}">
-			<button class="mx-2 cursor-pointer whitespace-nowrap hover:underline" onclick={showSettings}
-				>Settings</button
+			<button
+				class="mx-2 cursor-pointer whitespace-nowrap hover:underline"
+				onclick={showSettings}>Settings</button
 			>
 			{#if settings}
 				<Settings class="card" />

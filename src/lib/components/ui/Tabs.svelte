@@ -18,7 +18,11 @@
 						data-tabs-trigger
 						data-state="active"
 						class="absolute"
-						in:fly={{ x: option === options[0] ? 215 : -215, opacity: 1, duration: 300 }}
+						in:fly={{
+							x: option === options[0] ? 215 : -215,
+							opacity: 1,
+							duration: 300
+						}}
 					></div>
 				{/if}
 			</div>

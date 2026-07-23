@@ -73,7 +73,8 @@
 			{/if}
 			<h2 class="text-center text-3xl font-bold">
 				{m.user.name}
-				{#if m.user.id === user}<span class="text-2xl font-normal opacity-50">(You)</span>{/if}
+				{#if m.user.id === user}<span class="text-2xl font-normal opacity-50">(You)</span
+					>{/if}
 			</h2>
 			<h3 class="text-center font-mono text-lg">{m.user.email}</h3>
 			<form action="?/renameMember" method="POST" class="m-auto my-8 w-fit">
@@ -85,15 +86,20 @@
 				<input type="hidden" name="user" value={m.user.id} />
 			</form>
 			{#if !m.owner && m.user.id !== user}
-				<Button.Root class="m-auto mb-8 block" onclick={promote}>Promote to Admin</Button.Root>
+				<Button.Root class="m-auto mb-8 block" onclick={promote}
+					>Promote to Admin</Button.Root
+				>
 			{/if}
 			{#if members.filter((member: OrganizationMember) => member.owner).length > 1 && m.owner && m.user.id !== user}
-				<Button.Root class="m-auto mb-8 block" onclick={demote}>Demote to Member</Button.Root>
+				<Button.Root class="m-auto mb-8 block" onclick={demote}
+					>Demote to Member</Button.Root
+				>
 			{/if}
 			{#if members.length > 0 && m.user.id !== user}
 				{#if (m.owner && members.filter((member: OrganizationMember) => member.owner).length > 1) || !m.owner}
-					<Button.Root class="m-auto block bg-(--red)!" onclick={() => (confirmDeleteOpen = true)}
-						>Delete User</Button.Root
+					<Button.Root
+						class="m-auto block bg-(--red)!"
+						onclick={() => (confirmDeleteOpen = true)}>Delete User</Button.Root
 					>
 				{/if}
 			{/if}
@@ -134,8 +140,8 @@
 	<div class="relative h-46 w-120">
 		{#if confirmPage === 0}
 			<p class="mb-8 text-center text-lg">
-				Are you sure you would like to delete <b>{m.user.name}</b> from this organization? All data
-				associated with {m.user.name} will be deleted.
+				Are you sure you would like to delete <b>{m.user.name}</b> from this organization?
+				All data associated with {m.user.name} will be deleted.
 			</p>
 		{:else if confirmPage === 1}
 			<p class="text-center">
@@ -147,8 +153,8 @@
 			</div>
 		{:else}
 			<p class="mb-8 text-center text-lg">
-				The account of {m.user.name} has been marked for deletion, and will be deleted in 30 days if no
-				attempt to recover the account has been made.
+				The account of {m.user.name} has been marked for deletion, and will be deleted in 30 days
+				if no attempt to recover the account has been made.
 			</p>
 		{/if}
 		<p class="absolute bottom-14 left-20 text-(--red)">{confirmError}</p>
@@ -158,7 +164,9 @@
 					<Button.Root onclick={cancel}>Cancel</Button.Root>
 				{/if}
 				{#if confirmPage === 0}
-					<Button.Root class="bg-(--red)!" onclick={() => (confirmPage = 1)}>Next</Button.Root>
+					<Button.Root class="bg-(--red)!" onclick={() => (confirmPage = 1)}
+						>Next</Button.Root
+					>
 				{:else if confirmPage === 1}
 					<form
 						action="?/delete"

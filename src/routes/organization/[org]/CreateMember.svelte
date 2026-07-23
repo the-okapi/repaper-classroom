@@ -16,10 +16,11 @@
 	{:else if loading}
 		<div class="absolute w-60 text-center">
 			<p>
-				An email has been sent to <span class="font-mono text-sm">{form.email}</span> to finish setting
-				up the account.
+				An email has been sent to <span class="font-mono text-sm">{form.email}</span> to finish
+				setting up the account.
 			</p>
-			<Button.Root onclick={() => (loading = false)} class="mt-7">Create another Member</Button.Root
+			<Button.Root onclick={() => (loading = false)} class="mt-7"
+				>Create another Member</Button.Root
 			>
 		</div>
 	{/if}

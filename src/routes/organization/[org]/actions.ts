@@ -3,6 +3,7 @@ import resend from '$lib/resend';
 import { object, string, safeParse } from 'valibot';
 import type { RouteParams } from './$types';
 import { UserIdSchema } from '$lib/types';
+import { unwrap, unwrapNoData } from '$lib/error';
 
 type ActionData = {
 	request: Request;
@@ -23,35 +24,39 @@ export const rename = async ({ request, params, locals }: ActionData) => {
 
 	const { name } = formData.output;
 
-	const {
-		data: { user }
-	} = await locals.supabase.auth.getUser();
+	try {
+		const { user } = unwrap(await locals.supabase.auth.getUser(), 39);
 
-	if (!user) {
-		return redirect(303, '/');
-	}
+		if (!user) {
+			return redirect(303, '/');
+		}
 
-	const { data: check } = await locals.supabase
-		.from('organization_memberships')
-		.select('organization ( name )')
-		.eq('organization', params.org)
-		.eq('user', user.id)
-		.eq('owner', true);
+		const check = unwrap(
+			await locals.supabase
+				.from('organization_memberships')
+				.select('organization ( name )')
+				.eq('organization', params.org)
+				.eq('user', user.id)
+				.eq('owner', true),
+			40
+		);
 
-	if (!check?.[0]) {
-		return redirect(303, '/home');
-	}
+		if (!check?.[0]) {
+			return redirect(303, '/home');
+		}
 
-	const { error } = await locals.supabase
-		.from('organizations')
-		.update({
-			name
-		})
-		.eq('id', params.org)
-		.eq('name', check[0].organization.name);
-
-	if (error) {
-		return { renameError: true, message: error.message };
+		unwrapNoData(
+			await locals.supabase
+				.from('organizations')
+				.update({
+					name
+				})
+				.eq('id', params.org)
+				.eq('name', check[0].organization.name),
+			41
+		);
+	} catch (error: any) {
+		return fail(500, { renameError: true, message: error.message });
 	}
 
 	return { success: true };
@@ -71,69 +76,70 @@ export const create = async ({ locals, request, params }: ActionData) => {
 
 	const { name, email } = formData.output;
 
-	const {
-		data: { user }
-	} = await locals.supabase.auth.getUser();
+	try {
+		const { user } = unwrap(await locals.supabase.auth.getUser(), 42);
 
-	if (!user) {
-		return redirect(303, '/');
-	}
+		if (!user) {
+			return redirect(303, '/');
+		}
 
-	const { data: foundData, error: foundError } = await locals.supabase
-		.from('users')
-		.select('id')
-		.eq('email', email);
+		const foundData = unwrap(
+			await locals.supabase.from('users').select('id').eq('email', email),
+			43
+		);
 
-	if (foundError) {
-		console.error(foundError, 'actions found');
-		return fail(500, { createError: true, message: foundError.message });
-	}
+		if (foundData.length > 0) {
+			return fail(409, {
+				createError: true,
+				message: 'A user with that email already exists.'
+			});
+		}
 
-	if (foundData.length > 0) {
-		return fail(409, { createError: true, message: 'A user with that email already exists.' });
-	}
+		const check = unwrap(
+			await locals.supabase
+				.from('organization_memberships')
+				.select('organization ( name )')
+				.eq('user', user.id)
+				.eq('owner', true)
+				.eq('organization', params.org),
+			44
+		);
 
-	const { data: check } = await locals.supabase
-		.from('organization_memberships')
-		.select('organization ( name )')
-		.eq('user', user.id)
-		.eq('owner', true)
-		.eq('organization', params.org);
+		if (!check?.[0]) {
+			return redirect(303, '/home');
+		}
 
-	if (!check?.[0]) {
-		return redirect(303, '/home');
-	}
+		const invitation = unwrap(
+			await locals.supabase
+				.from('invitations')
+				.insert({
+					name,
+					email,
+					organization: params.org
+				})
+				.select('id'),
+			45
+		);
 
-	const { data: invitation, error } = await locals.supabase
-		.from('invitations')
-		.insert({
-			name,
-			email,
-			organization: params.org
-		})
-		.select('id');
-
-	if (error) {
-		console.error('actions error2');
+		await resend.emails.send({
+			from: 'Repaper Classroom <repaper-classroom@unlimitedstuffltd.com>',
+			to: email,
+			template: {
+				id: 'invitation-email',
+				variables: {
+					NAME: name,
+					ORGANIZATION: check[0].organization.name,
+					LINK:
+						'https://classroom.repaper.unlimitedstuffltd.com/invitation/' +
+						params.org +
+						'/' +
+						invitation[0].id
+				}
+			}
+		});
+	} catch (error: any) {
 		return fail(500, { createError: true, message: error.message });
 	}
-
-	await resend.emails.send({
-		from: 'Repaper Classroom <repaper-classroom@unlimitedstuffltd.com>',
-		to: email,
-		template: {
-			id: 'invitation-email',
-			variables: {
-				NAME: name,
-				ORGANIZATION: check[0].organization.name,
-				LINK:
-					'https://classroom.repaper.unlimitedstuffltd.com/invitation/' +
-					params.org +
-					'/' +
-					invitation[0].id
-			}
-		}
-	});
 
 	return { createSuccess: true, success: true, email };
 };

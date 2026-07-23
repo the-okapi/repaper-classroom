@@ -29,7 +29,10 @@
 	}}
 >
 	<div class="relative">
-		<Combobox.Input defaultValue={value} oninput={(e) => (searchValue = e.currentTarget.value)} />
+		<Combobox.Input
+			defaultValue={value}
+			oninput={(e) => (searchValue = e.currentTarget.value)}
+		/>
 		<Combobox.Trigger class="absolute top-1 right-3 cursor-pointer">
 			<img
 				src={expand}
@@ -45,8 +48,9 @@
 					<Combobox.Item
 						data-select-item
 						value={option.user.name}
-						class="w-48! hover:bg-(--fg)/5! {i === 0 ? 'rounded-t-xl border-t' : ''} {i ===
-						filteredOptions.length - 1
+						class="w-48! hover:bg-(--fg)/5! {i === 0
+							? 'rounded-t-xl border-t'
+							: ''} {i === filteredOptions.length - 1
 							? 'rounded-b-xl border-b'
 							: ''} border-x"
 					>
