@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { SelectC, SelectItem } from '$lib/components';
-	import type { SelectItemType } from '$lib';
+	import type { SelectItemType } from '$lib/types';
 
 	let {
 		options,

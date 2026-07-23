@@ -2,6 +2,7 @@ import { redirect, fail } from '@sveltejs/kit';
 import resend from '$lib/resend';
 import { object, string, safeParse } from 'valibot';
 import type { RouteParams } from './$types';
+import { UserIdSchema } from '$lib/types';
 
 type ActionData = {
 	request: Request;
@@ -241,18 +242,14 @@ export const renameMember = async ({ request, locals, params }: ActionData) => {
 	return { success: true };
 };
 
-const DeleteMemberSchema = object({
-	user: string()
-});
-
 export const deleteMember = async ({ request, params, locals }: ActionData) => {
-	const formData = safeParse(DeleteMemberSchema, Object.fromEntries(await request.formData()));
+	const formData = safeParse(UserIdSchema, Object.fromEntries(await request.formData()));
 
 	if (!formData.success) {
 		return redirect(303, '/error');
 	}
 
-	const { user: userId } = formData.output;
+	const { userId } = formData.output;
 
 	const {
 		data: { user }
@@ -301,12 +298,8 @@ export const deleteMember = async ({ request, params, locals }: ActionData) => {
 	return { success: true };
 };
 
-const RestoreSchema = object({
-	userId: string()
-});
-
 export const restore = async ({ request, locals, params }: ActionData) => {
-	const formData = safeParse(RestoreSchema, Object.fromEntries(await request.formData()));
+	const formData = safeParse(UserIdSchema, Object.fromEntries(await request.formData()));
 
 	if (!formData.success) {
 		return redirect(303, '/error');
@@ -360,12 +353,8 @@ export const restore = async ({ request, locals, params }: ActionData) => {
 	return { success: true };
 };
 
-const PromoteSchema = object({
-	userId: string()
-});
-
 export const promote = async ({ request, locals, params }: ActionData) => {
-	const formData = safeParse(PromoteSchema, Object.fromEntries(await request.formData()));
+	const formData = safeParse(UserIdSchema, Object.fromEntries(await request.formData()));
 
 	if (!formData.success) {
 		return redirect(303, '/error');
@@ -409,12 +398,8 @@ export const promote = async ({ request, locals, params }: ActionData) => {
 	return { success: true };
 };
 
-const DemoteSchema = object({
-	userId: string()
-});
-
 export const demote = async ({ request, params, locals }: ActionData) => {
-	const formData = safeParse(DemoteSchema, Object.fromEntries(await request.formData()));
+	const formData = safeParse(UserIdSchema, Object.fromEntries(await request.formData()));
 
 	if (!formData.success) {
 		return redirect(303, '/error');

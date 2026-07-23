@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { AlertDialog } from '$lib/components';
 	import { Button, Label } from 'bits-ui';
-	import type { OrganizationMember } from '$lib';
+	import type { OrganizationMember } from '$lib/types';
 	import { enhance } from '$app/forms';
 
 	let { members, user } = $props();
@@ -174,7 +174,7 @@
 						}}
 					>
 						<Button.Root class="bg-(--red)!" type="submit">Go</Button.Root>
-						<input type="hidden" name="user" value={m.user.id} />
+						<input type="hidden" name="userId" value={m.user.id} />
 					</form>
 				{:else}
 					<Button.Root

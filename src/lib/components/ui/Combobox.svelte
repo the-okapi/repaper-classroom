@@ -29,7 +29,7 @@
 	}}
 >
 	<div class="relative">
-		<Combobox.Input oninput={(e) => (searchValue = e.currentTarget.value)} />
+		<Combobox.Input defaultValue={value} oninput={(e) => (searchValue = e.currentTarget.value)} />
 		<Combobox.Trigger class="absolute top-1 right-3 cursor-pointer">
 			<img
 				src={expand}
