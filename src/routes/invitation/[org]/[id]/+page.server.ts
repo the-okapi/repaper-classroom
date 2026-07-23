@@ -1,25 +1,28 @@
 import type { Actions, PageServerLoad } from './$types';
 import { fail, redirect } from '@sveltejs/kit';
 import { object, string, safeParse } from 'valibot';
+import { unwrap, unwrapNoData } from '$lib/error';
 
 export const load: PageServerLoad = async ({ locals, params }) => {
-	const { data, error } = await locals.supabase.rpc('check_invitation_exists', {
-		o: params.org,
-		i: params.id
-	});
+	try {
+		const data = unwrap(
+			await locals.supabase.rpc('check_invitation_exists', {
+				o: params.org,
+				i: params.id
+			}),
+			72
+		);
 
-	if (error) {
-		console.error(error, 'invitation/org/id page.server error');
+		if (data.length === 0) {
+			return redirect(303, '/');
+		}
+
+		return {
+			title: 'Create Account'
+		};
+	} catch {
 		return redirect(303, '/error');
 	}
-
-	if (data.length === 0) {
-		return redirect(303, '/');
-	}
-
-	return {
-		title: 'Create Account'
-	};
 };
 
 const InvitationSchema = object({
@@ -50,45 +53,40 @@ export const actions = {
 			});
 		}
 
-		const { data, error: checkError } = await locals.supabase.rpc('check_invitation', {
-			e: email,
-			i: params.id,
-			o: params.org
-		});
+		try {
+			const data = unwrap(
+				await locals.supabase.rpc('check_invitation', {
+					e: email,
+					i: params.id,
+					o: params.org
+				}),
+				73
+			);
 
-		if (checkError) {
-			console.error(checkError, 'invitation/org/id/page.server check');
-			return fail(500, { fail: true, message: checkError.message, email });
-		}
-
-		if (data === '') {
-			return fail(500, { fail: true, message: 'Incorrect Email', email });
-		}
-
-		const { error } = await locals.supabase.auth.signUp({
-			email,
-			password,
-			options: {
-				data: {
-					name: data,
-					organization: params.org
-				}
+			if (data === '') {
+				return fail(500, { fail: true, message: 'Incorrect Email', email });
 			}
-		});
 
-		if (error) {
-			console.error(error, 'invitation/org/id/page.server error2');
+			unwrapNoData(
+				await locals.supabase.auth.signUp({
+					email,
+					password,
+					options: {
+						data: {
+							name: data,
+							organization: params.org
+						}
+					}
+				}),
+				74
+			);
+
+			unwrapNoData(
+				await locals.supabase.from('invitations').delete().eq('id', params.id),
+				75
+			);
+		} catch (error: any) {
 			return fail(500, { fail: true, message: error.message, email });
-		}
-
-		const { error: deleteError } = await locals.supabase
-			.from('invitations')
-			.delete()
-			.eq('id', params.id);
-
-		if (deleteError) {
-			console.error(error, 'invitation/org/id/page.server delete');
-			return fail(500, { fail: true, message: deleteError.message, email });
 		}
 
 		return redirect(303, '/home');

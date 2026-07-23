@@ -157,33 +157,36 @@ export const revoke = async ({ request, locals, params }: ActionData) => {
 
 	const { invitation } = formData.output;
 
-	const {
-		data: { user }
-	} = await locals.supabase.auth.getUser();
+	try {
+		const { user } = unwrap(await locals.supabase.auth.getUser(), 46);
 
-	if (!user) {
-		return redirect(303, '/');
-	}
+		if (!user) {
+			return redirect(303, '/');
+		}
 
-	const { data: check } = await locals.supabase
-		.from('organization_memberships')
-		.select('id')
-		.eq('organization', params.org)
-		.eq('user', user.id)
-		.eq('owner', true);
+		const check = unwrap(
+			await locals.supabase
+				.from('organization_memberships')
+				.select('id')
+				.eq('organization', params.org)
+				.eq('user', user.id)
+				.eq('owner', true),
+			47
+		);
 
-	if (!check?.[0]) {
-		return redirect(303, '/home');
-	}
+		if (!check?.[0]) {
+			return redirect(303, '/home');
+		}
 
-	const { error } = await locals.supabase
-		.from('invitations')
-		.delete()
-		.eq('id', invitation)
-		.eq('organization', params.org);
-
-	if (error) {
-		console.error(error, 'actions error');
+		unwrapNoData(
+			await locals.supabase
+				.from('invitations')
+				.delete()
+				.eq('id', invitation)
+				.eq('organization', params.org),
+			48
+		);
+	} catch {
 		return redirect(303, '/error');
 	}
 
@@ -204,44 +207,50 @@ export const renameMember = async ({ request, locals, params }: ActionData) => {
 
 	const { user: userId, name } = formData.output;
 
-	const {
-		data: { user }
-	} = await locals.supabase.auth.getUser();
+	try {
+		const { user } = unwrap(await locals.supabase.auth.getUser(), 49);
 
-	if (!user) {
-		return redirect(303, '/');
-	}
+		if (!user) {
+			return redirect(303, '/');
+		}
 
-	const { data: check } = await locals.supabase
-		.from('organization_memberships')
-		.select('id')
-		.eq('user', user.id)
-		.eq('organization', params.org)
-		.eq('owner', true);
+		const check = unwrap(
+			await locals.supabase
+				.from('organization_memberships')
+				.select('id')
+				.eq('user', user.id)
+				.eq('organization', params.org)
+				.eq('owner', true),
+			50
+		);
 
-	if (!check?.[0]) {
-		return redirect(303, '/home');
-	}
+		if (!check?.[0]) {
+			return redirect(303, '/home');
+		}
 
-	const { data: check2 } = await locals.supabase
-		.from('organization_memberships')
-		.select('user')
-		.eq('user', userId)
-		.eq('organization', params.org);
+		const check2 = unwrap(
+			await locals.supabase
+				.from('organization_memberships')
+				.select('user')
+				.eq('user', userId)
+				.eq('organization', params.org),
+			51
+		);
 
-	if (!check2?.[0]) {
-		return fail(400, { renameMemberError: true, message: 'User does not exist.' });
-	}
+		if (!check2?.[0]) {
+			return fail(400, { renameMemberError: true, message: 'User does not exist.' });
+		}
 
-	const { error } = await locals.supabase
-		.from('users')
-		.update({
-			name
-		})
-		.eq('id', userId);
-
-	if (error) {
-		console.error(error, 'actions error3');
+		unwrapNoData(
+			await locals.supabase
+				.from('users')
+				.update({
+					name
+				})
+				.eq('id', userId),
+			52
+		);
+	} catch (error: any) {
 		return fail(500, { renameMemberError: true, message: error.message });
 	}
 
@@ -257,47 +266,48 @@ export const deleteMember = async ({ request, params, locals }: ActionData) => {
 
 	const { userId } = formData.output;
 
-	const {
-		data: { user }
-	} = await locals.supabase.auth.getUser();
+	try {
+		const { user } = unwrap(await locals.supabase.auth.getUser(), 53);
 
-	if (!user) {
-		return redirect(303, '/');
-	}
+		if (!user) {
+			return redirect(303, '/');
+		}
 
-	const { data: check } = await locals.supabase
-		.from('organization_memberships')
-		.select('id')
-		.eq('organization', params.org)
-		.eq('owner', true)
-		.eq('user', user.id);
+		const check = unwrap(
+			await locals.supabase
+				.from('organization_memberships')
+				.select('id')
+				.eq('organization', params.org)
+				.eq('owner', true)
+				.eq('user', user.id),
+			54
+		);
 
-	if (!check?.[0]) {
-		return redirect(303, '/home');
-	}
+		if (!check?.[0]) {
+			return redirect(303, '/home');
+		}
 
-	const { error: deleteError } = await locals.supabase
-		.from('organization_memberships')
-		.delete()
-		.eq('organization', params.org)
-		.eq('user', userId);
+		unwrapNoData(
+			await locals.supabase
+				.from('organization_memberships')
+				.delete()
+				.eq('organization', params.org)
+				.eq('user', userId),
+			55
+		);
 
-	if (deleteError) {
-		console.error(deleteError, 'actions delete');
-		return redirect(303, '/error');
-	}
+		const date = new Date();
 
-	const date = new Date();
+		date.setDate(date.getDate() + 30);
 
-	date.setDate(date.getDate() + 30);
-
-	const { error: updateError } = await locals.supabase
-		.from('users')
-		.update({ can_delete: date.toISOString() })
-		.eq('id', userId);
-
-	if (updateError) {
-		console.error(updateError, 'actions update');
+		unwrapNoData(
+			await locals.supabase
+				.from('users')
+				.update({ can_delete: date.toISOString() })
+				.eq('id', userId),
+			56
+		);
+	} catch {
 		return redirect(303, '/error');
 	}
 
@@ -313,46 +323,47 @@ export const restore = async ({ request, locals, params }: ActionData) => {
 
 	const { userId } = formData.output;
 
-	const {
-		data: { user }
-	} = await locals.supabase.auth.getUser();
+	try {
+		const { user } = unwrap(await locals.supabase.auth.getUser(), 57);
 
-	if (!user) {
-		return redirect(303, '/');
-	}
+		if (!user) {
+			return redirect(303, '/');
+		}
 
-	const { data: check } = await locals.supabase
-		.from('organization_memberships')
-		.select('id')
-		.eq('organization', params.org)
-		.eq('user', user.id)
-		.eq('owner', true);
+		const check = unwrap(
+			await locals.supabase
+				.from('organization_memberships')
+				.select('id')
+				.eq('organization', params.org)
+				.eq('user', user.id)
+				.eq('owner', true),
+			58
+		);
 
-	if (!check?.[0]) {
-		return redirect(303, '/home');
-	}
+		if (!check?.[0]) {
+			return redirect(303, '/home');
+		}
 
-	const { error: insertError } = await locals.supabase.from('organization_memberships').insert({
-		user: userId,
-		organization: params.org,
-		owner: false
-	});
+		unwrapNoData(
+			await locals.supabase.from('organization_memberships').insert({
+				user: userId,
+				organization: params.org,
+				owner: false
+			}),
+			59
+		);
 
-	if (insertError) {
-		console.error(insertError, 'actions insert');
-		return redirect(303, '/error');
-	}
-
-	const { error: updateError } = await locals.supabase
-		.from('users')
-		.update({
-			can_delete: null
-		})
-		.eq('id', userId)
-		.eq('organization', params.org);
-
-	if (updateError) {
-		console.error(updateError, 'actions update');
+		unwrapNoData(
+			await locals.supabase
+				.from('users')
+				.update({
+					can_delete: null
+				})
+				.eq('id', userId)
+				.eq('organization', params.org),
+			60
+		);
+	} catch {
 		return redirect(303, '/error');
 	}
 
@@ -368,36 +379,39 @@ export const promote = async ({ request, locals, params }: ActionData) => {
 
 	const { userId } = formData.output;
 
-	const {
-		data: { user }
-	} = await locals.supabase.auth.getUser();
+	try {
+		const { user } = unwrap(await locals.supabase.auth.getUser(), 61);
 
-	if (!user) {
-		return redirect(303, '/');
-	}
+		if (!user) {
+			return redirect(303, '/');
+		}
 
-	const { data: check } = await locals.supabase
-		.from('organization_memberships')
-		.select('id')
-		.eq('organization', params.org)
-		.eq('owner', true)
-		.eq('user', user.id);
+		const check = unwrap(
+			await locals.supabase
+				.from('organization_memberships')
+				.select('id')
+				.eq('organization', params.org)
+				.eq('owner', true)
+				.eq('user', user.id),
+			62
+		);
 
-	if (!check?.[0]) {
-		return redirect(303, '/home');
-	}
+		if (!check?.[0]) {
+			return redirect(303, '/home');
+		}
 
-	const { error } = await locals.supabase
-		.from('organization_memberships')
-		.update({
-			owner: true
-		})
-		.eq('user', userId)
-		.eq('organization', params.org)
-		.eq('owner', false);
-
-	if (error) {
-		console.log(error, 'actions promote');
+		unwrapNoData(
+			await locals.supabase
+				.from('organization_memberships')
+				.update({
+					owner: true
+				})
+				.eq('user', userId)
+				.eq('organization', params.org)
+				.eq('owner', false),
+			63
+		);
+	} catch {
 		return redirect(303, '/error');
 	}
 
@@ -413,40 +427,43 @@ export const demote = async ({ request, params, locals }: ActionData) => {
 
 	const { userId } = formData.output;
 
-	const {
-		data: { user }
-	} = await locals.supabase.auth.getUser();
+	try {
+		const { user } = unwrap(await locals.supabase.auth.getUser(), 64);
 
-	if (!user) {
-		return redirect(303, '/');
-	}
+		if (!user) {
+			return redirect(303, '/');
+		}
 
-	if (userId === user.id) {
-		return fail(400, { demoteFailure: true, message: 'You cannot demote yourself.' });
-	}
+		if (userId === user.id) {
+			return fail(400, { demoteFailure: true, message: 'You cannot demote yourself.' });
+		}
 
-	const { data: check } = await locals.supabase
-		.from('organization_memberships')
-		.select('id')
-		.eq('organization', params.org)
-		.eq('owner', true)
-		.eq('user', user.id);
+		const check = unwrap(
+			await locals.supabase
+				.from('organization_memberships')
+				.select('id')
+				.eq('organization', params.org)
+				.eq('owner', true)
+				.eq('user', user.id),
+			65
+		);
 
-	if (!check?.[0]) {
-		return redirect(303, '/home');
-	}
+		if (!check?.[0]) {
+			return redirect(303, '/home');
+		}
 
-	const { error } = await locals.supabase
-		.from('organization_memberships')
-		.update({
-			owner: false
-		})
-		.eq('user', userId)
-		.eq('organization', params.org)
-		.eq('owner', true);
-
-	if (error) {
-		console.error(error, 'actions error5');
+		unwrapNoData(
+			await locals.supabase
+				.from('organization_memberships')
+				.update({
+					owner: false
+				})
+				.eq('user', userId)
+				.eq('organization', params.org)
+				.eq('owner', true),
+			66
+		);
+	} catch {
 		return redirect(303, '/error');
 	}
 

@@ -1,7 +1,7 @@
 import { fail, redirect } from '@sveltejs/kit';
 import type { RouteParams } from './$types';
 import { object, string, safeParse } from 'valibot';
-import { HttpError, unwrap } from '$lib/error';
+import { HttpError, unwrap, unwrapNoData } from '$lib/error';
 import { UserIdSchema } from '$lib/types';
 
 type ActionData = {
@@ -85,7 +85,7 @@ export const add = async ({ request, locals, params }: ActionData) => {
 			throw new HttpError('User is already in class', 409);
 		}
 
-		unwrap(
+		unwrapNoData(
 			await locals.supabase.from('class_memberships').insert({
 				user: userId,
 				class: params.id,
@@ -130,7 +130,7 @@ export const remove = async ({ request, locals, params }: ActionData) => {
 			return new HttpError('Invalid Permissions', 403);
 		}
 
-		unwrap(
+		unwrapNoData(
 			await locals.supabase
 				.from('class_memberships')
 				.delete()
